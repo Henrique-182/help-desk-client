@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private router: Router
   ) {
     this.loginForm = this._formBuilder.group({
       username: [null],
@@ -37,9 +39,18 @@ export class LoginComponent implements OnInit {
         next: (data) => {
           localStorage.setItem('accessToken', data.accessToken)
           localStorage.setItem('username', data.username)
-          this.showSnackBar('Login realizado com sucesso!', 'Ok!', 3000)
+
+          this.router.navigate(['auth/user'])
         },
-        error: () => this.showSnackBar('Login Falhou! Tente novamente', 'Ok!', 3000)
+        error: (error) => {
+          const statusCode: number = error.status
+
+          if (statusCode >= 400 && statusCode <= 499) {
+            this.showSnackBar('Usuário/senha inválidos. Tente novamente!', 'Ok!', 3000)
+          } else {
+            this.showSnackBar('Login Falhou. Tente novamente mais tarde!', 'Ok!', 3000)
+          }
+        }
       })
   }
 
