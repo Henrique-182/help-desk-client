@@ -1,9 +1,37 @@
 <div class="login-container">
     <section class="login-container__form">
-        Form
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Faça login na sua conta</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <form [formGroup]="loginForm">
+                    <mat-form-field>
+                        <mat-label>Username</mat-label>
+                        <input matInput type="text" formControlName="username">
+                        <button mat-icon-button matSuffix>
+                            <mat-icon>person</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Password</mat-label>
+                        <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password">
+                        <button mat-icon-button matSuffix (click)="changePasswordVisibility()">
+                            <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </form>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" (click)="onLoginSubmit()">Login</button>
+                <button mat-button color="primary" (click)="onForgotPasswordSubmit()">Esqueceu a senha?</button>
+              </mat-card-actions>
+        </mat-card>
     </section>
+
     <section class="login-container__icon">
-        <mat-icon aria-hidden="false" aria-label="Example home icon" color="accent">login</mat-icon>
+        <mat-icon aria-hidden="false">login</mat-icon>
     </section>
 </div>
 
+<!-- https://www.figma.com/design/7T1wkErczpMOBeqtpVjMSb/Login-Page-Design?node-id=6-920 -->
