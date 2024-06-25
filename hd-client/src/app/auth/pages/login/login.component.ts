@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _authService: AuthService
   ) {
     this.loginForm = this._formBuilder.group({
       username: [null],
@@ -30,7 +32,15 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginSubmit() {
-    this.showSnackBar('Login não implementado!!!', 'Ok!', 3000)
+    this._authService.signin(this.loginForm.value)
+      .subscribe({
+        next: (data) => {
+          localStorage.setItem('accessToken', data.accessToken)
+          localStorage.setItem('username', data.username)
+          this.showSnackBar('Login realizado com sucesso!', 'Ok!', 3000)
+        },
+        error: () => this.showSnackBar('Login Falhou! Tente novamente', 'Ok!', 3000)
+      })
   }
 
   onForgotPasswordSubmit() {
