@@ -8,7 +8,7 @@ export interface UserDto {
     fullname: string,
     accountNonExpired: boolean,
     accountNonLocked: boolean,
-    credentialsNonLocked: boolean,
+    credentialsNonExpired: boolean,
     enabled: boolean,
     permissions: UserPermission[]
     _links: {

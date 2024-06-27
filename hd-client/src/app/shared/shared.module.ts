@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PipesModule } from './pipe/pipe.module';
 
 
 @NgModule({
@@ -9,11 +10,13 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     AngularMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PipesModule
   ],
   exports: [
     AngularMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PipesModule
   ]
 })
 export class SharedModule { }
