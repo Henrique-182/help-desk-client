@@ -4,6 +4,7 @@ import { UserDto } from '../../model/user-dto';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -26,7 +27,8 @@ export class UserComponent implements AfterViewInit {
   username: string = ''
 
   constructor(
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _router: Router
   ) {
     this.username = localStorage.getItem('username') || 'Usuário'
   }
@@ -45,7 +47,7 @@ export class UserComponent implements AfterViewInit {
   }
 
   onAddUser() {
-    this.showSnackBar('Adicionar usuário não implementado!!!', 'Ok!', 3000)
+    this._router.navigate(['auth/user/add'])
   }
 
   onUserReport() {

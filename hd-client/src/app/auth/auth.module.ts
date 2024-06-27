@@ -4,13 +4,15 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 import { SharedModule } from '../shared/shared.module';
 import { UserComponent } from './pages/user/user.component';
+import { UserFormComponent } from './pages/user-form/user-form.component';
 
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    UserComponent
+    UserComponent,
+    UserFormComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { UserComponent } from './pages/user/user.component';
   ],
   exports: [
     LoginComponent,
-    UserComponent
+    UserComponent,
+    UserFormComponent
   ]
 })
 export class AuthModule { }
