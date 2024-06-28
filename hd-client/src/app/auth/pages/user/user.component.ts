@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class UserComponent implements AfterViewInit {
 
   tableDataSource = new MatTableDataSource<UserDto>(UserList._embedded.userVOList)
-  displayedColumns: string[] = ['key', 'username', 'fullname', 'accountNonExpired', 'accountNonLocked', 'credentialsNonExpired', 'enabled', 'actions']
+  displayedColumns: string[] = ['key', 'username', 'fullname', 'actions']
 
   @ViewChild(MatPaginator, { static: false })
   paginator: MatPaginator = new MatPaginator(new MatPaginatorIntl(), ChangeDetectorRef.prototype)
@@ -55,15 +55,15 @@ export class UserComponent implements AfterViewInit {
   }
 
   onGetUser() {
-    this.showSnackBar('Visualizar usuário não implementado!!!', 'Ok!', 3000)
+    this._router.navigate(['auth/user/info'])
   }
 
   onEditUser() {
-    this.showSnackBar('Editar usuário não implementado!!!', 'Ok!', 3000)
+    this._router.navigate(['auth/user/edit'])
   }
 
   onDeleteUser() {
-    this.showSnackBar('Excluir usuário não implementado!!!', 'Ok!', 3000)
+    this._router.navigate(['auth/user/delete'])
   }
 
   private showSnackBar(message: string, action: string, snackBarDuration: number) {
