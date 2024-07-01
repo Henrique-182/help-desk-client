@@ -7,7 +7,6 @@ import { UserComponent } from './pages/user/user.component';
 import { UserFormComponent } from './pages/user-form/user-form.component';
 
 
-
 @NgModule({
   declarations: [
     LoginComponent,

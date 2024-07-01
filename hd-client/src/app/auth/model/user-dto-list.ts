@@ -1,5 +1,5 @@
 import { Links } from "../../shared/model/hateoas/links"
-import { Page } from "../../shared/model/pageable/page"
+import { Page } from "../../shared/model/hateoas/page"
 import { UserDto } from "./user-dto"
 
 export interface UserDtoList {

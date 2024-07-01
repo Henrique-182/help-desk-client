@@ -7,10 +7,9 @@ import { UserFormComponent } from "./pages/user-form/user-form.component";
 const routes: Routes = [
     { path: 'auth/login', component: LoginComponent },
     { path: 'auth/user', component: UserComponent },
-    { path: 'auth/user/info', component: UserFormComponent },
+    { path: 'auth/user/info/:id', component: UserFormComponent },
     { path: 'auth/user/add', component: UserFormComponent },
-    { path: 'auth/user/edit', component: UserFormComponent },
-    { path: 'auth/user/delete', component: UserFormComponent }
+    { path: 'auth/user/edit/:id', component: UserFormComponent }
 ]
 
 @NgModule({

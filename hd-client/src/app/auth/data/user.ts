@@ -82,7 +82,7 @@ export const UserList: UserDtoList = {
                 }
             },
             {
-                key: 1,
+                key: 4,
                 username: "ADM",
                 fullname: "ADM",
                 accountNonExpired: true,
@@ -113,7 +113,7 @@ export const UserList: UserDtoList = {
                 }
             },
             {
-                key: 2,
+                key: 5,
                 username: "MANAGER",
                 fullname: "MANAGER",
                 accountNonExpired: true,
@@ -139,7 +139,7 @@ export const UserList: UserDtoList = {
                 }
             },
             {
-                key: 3,
+                key: 6,
                 username: "COMMOM_USER",
                 fullname: "COMMON_USER",
                 accountNonExpired: true,
@@ -160,7 +160,7 @@ export const UserList: UserDtoList = {
                 }
             },
             {
-                key: 1,
+                key: 7,
                 username: "ADM",
                 fullname: "ADM",
                 accountNonExpired: true,
@@ -191,7 +191,7 @@ export const UserList: UserDtoList = {
                 }
             },
             {
-                key: 2,
+                key: 8,
                 username: "MANAGER",
                 fullname: "MANAGER",
                 accountNonExpired: true,
@@ -217,7 +217,7 @@ export const UserList: UserDtoList = {
                 }
             },
             {
-                key: 3,
+                key: 9,
                 username: "COMMOM_USER",
                 fullname: "COMMON_USER",
                 accountNonExpired: true,
@@ -238,7 +238,7 @@ export const UserList: UserDtoList = {
                 }
             },
             {
-                key: 1,
+                key: 10,
                 username: "ADM",
                 fullname: "ADM",
                 accountNonExpired: true,
@@ -269,7 +269,7 @@ export const UserList: UserDtoList = {
                 }
             },
             {
-                key: 2,
+                key: 11,
                 username: "MANAGER",
                 fullname: "MANAGER",
                 accountNonExpired: true,
@@ -295,7 +295,7 @@ export const UserList: UserDtoList = {
                 }
             },
             {
-                key: 3,
+                key: 12,
                 username: "COMMOM_USER",
                 fullname: "COMMON_USER",
                 accountNonExpired: true,
@@ -316,7 +316,7 @@ export const UserList: UserDtoList = {
                 }
             },
             {
-                key: 1,
+                key: 13,
                 username: "ADM",
                 fullname: "ADM",
                 accountNonExpired: true,
@@ -347,7 +347,7 @@ export const UserList: UserDtoList = {
                 }
             },
             {
-                key: 2,
+                key: 14,
                 username: "MANAGER",
                 fullname: "MANAGER",
                 accountNonExpired: true,
@@ -373,241 +373,7 @@ export const UserList: UserDtoList = {
                 }
             },
             {
-                key: 3,
-                username: "COMMOM_USER",
-                fullname: "COMMON_USER",
-                accountNonExpired: true,
-                accountNonLocked: true,
-                credentialsNonExpired: true,
-                enabled: true,
-                permissions: [
-                    {
-                        id: 3,
-                        description: "COMMON_USER",
-                        authority: "COMMON_USER"
-                    }
-                ],
-                _links: {
-                    self: {
-                        href: "http://localhost:8080/v1/user/3"
-                    }
-                }
-            },
-            {
-                key: 1,
-                username: "ADM",
-                fullname: "ADM",
-                accountNonExpired: true,
-                accountNonLocked: true,
-                credentialsNonExpired: true,
-                enabled: true,
-                permissions: [
-                    {
-                        id: 1,
-                        description: "ADMIN",
-                        authority: "ADMIN"
-                    },
-                    {
-                        id: 2,
-                        description: "MANAGER",
-                        authority: "MANAGER"
-                    },
-                    {
-                        id: 3,
-                        description: "COMMON_USER",
-                        authority: "COMMON_USER"
-                    }
-                ],
-                _links: {
-                    self: {
-                        href: "http://localhost:8080/v1/user/1"
-                    }
-                }
-            },
-            {
-                key: 2,
-                username: "MANAGER",
-                fullname: "MANAGER",
-                accountNonExpired: true,
-                accountNonLocked: true,
-                credentialsNonExpired: true,
-                enabled: true,
-                permissions: [
-                    {
-                        id: 2,
-                        description: "MANAGER",
-                        authority: "MANAGER"
-                    },
-                    {
-                        id: 3,
-                        description: "COMMON_USER",
-                        authority: "COMMON_USER"
-                    }
-                ],
-                _links: {
-                    self: {
-                        href: "http://localhost:8080/v1/user/2"
-                    }
-                }
-            },
-            {
-                key: 3,
-                username: "COMMOM_USER",
-                fullname: "COMMON_USER",
-                accountNonExpired: true,
-                accountNonLocked: true,
-                credentialsNonExpired: true,
-                enabled: true,
-                permissions: [
-                    {
-                        id: 3,
-                        description: "COMMON_USER",
-                        authority: "COMMON_USER"
-                    }
-                ],
-                _links: {
-                    self: {
-                        href: "http://localhost:8080/v1/user/3"
-                    }
-                }
-            },
-            {
-                key: 1,
-                username: "ADM",
-                fullname: "ADM",
-                accountNonExpired: true,
-                accountNonLocked: true,
-                credentialsNonExpired: true,
-                enabled: true,
-                permissions: [
-                    {
-                        id: 1,
-                        description: "ADMIN",
-                        authority: "ADMIN"
-                    },
-                    {
-                        id: 2,
-                        description: "MANAGER",
-                        authority: "MANAGER"
-                    },
-                    {
-                        id: 3,
-                        description: "COMMON_USER",
-                        authority: "COMMON_USER"
-                    }
-                ],
-                _links: {
-                    self: {
-                        href: "http://localhost:8080/v1/user/1"
-                    }
-                }
-            },
-            {
-                key: 2,
-                username: "MANAGER",
-                fullname: "MANAGER",
-                accountNonExpired: true,
-                accountNonLocked: true,
-                credentialsNonExpired: true,
-                enabled: true,
-                permissions: [
-                    {
-                        id: 2,
-                        description: "MANAGER",
-                        authority: "MANAGER"
-                    },
-                    {
-                        id: 3,
-                        description: "COMMON_USER",
-                        authority: "COMMON_USER"
-                    }
-                ],
-                _links: {
-                    self: {
-                        href: "http://localhost:8080/v1/user/2"
-                    }
-                }
-            },
-            {
-                key: 3,
-                username: "COMMOM_USER",
-                fullname: "COMMON_USER",
-                accountNonExpired: true,
-                accountNonLocked: true,
-                credentialsNonExpired: true,
-                enabled: true,
-                permissions: [
-                    {
-                        id: 3,
-                        description: "COMMON_USER",
-                        authority: "COMMON_USER"
-                    }
-                ],
-                _links: {
-                    self: {
-                        href: "http://localhost:8080/v1/user/3"
-                    }
-                }
-            },
-            {
-                key: 1,
-                username: "ADM",
-                fullname: "ADM",
-                accountNonExpired: true,
-                accountNonLocked: true,
-                credentialsNonExpired: true,
-                enabled: true,
-                permissions: [
-                    {
-                        id: 1,
-                        description: "ADMIN",
-                        authority: "ADMIN"
-                    },
-                    {
-                        id: 2,
-                        description: "MANAGER",
-                        authority: "MANAGER"
-                    },
-                    {
-                        id: 3,
-                        description: "COMMON_USER",
-                        authority: "COMMON_USER"
-                    }
-                ],
-                _links: {
-                    self: {
-                        href: "http://localhost:8080/v1/user/1"
-                    }
-                }
-            },
-            {
-                key: 2,
-                username: "MANAGER",
-                fullname: "MANAGER",
-                accountNonExpired: true,
-                accountNonLocked: true,
-                credentialsNonExpired: true,
-                enabled: true,
-                permissions: [
-                    {
-                        id: 2,
-                        description: "MANAGER",
-                        authority: "MANAGER"
-                    },
-                    {
-                        id: 3,
-                        description: "COMMON_USER",
-                        authority: "COMMON_USER"
-                    }
-                ],
-                _links: {
-                    self: {
-                        href: "http://localhost:8080/v1/user/2"
-                    }
-                }
-            },
-            {
-                key: 3,
+                key: 15,
                 username: "COMMOM_USER",
                 fullname: "COMMON_USER",
                 accountNonExpired: true,

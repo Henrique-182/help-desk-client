@@ -1,45 +1,53 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import { UserList } from '../../data/user';
+import { Component, OnInit } from '@angular/core';
 import { UserDto } from '../../model/user-dto';
-import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { Pageable } from '../../../shared/model/pageable/pageable';
+import { UserDtoList } from '../../model/user-dto-list';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
-export class UserComponent implements AfterViewInit {
+export class UserComponent implements OnInit {
 
-  tableDataSource = new MatTableDataSource<UserDto>(UserList._embedded.userVOList)
-  displayedColumns: string[] = ['key', 'username', 'fullname', 'actions']
+  tableValue: UserDto[] = [] as UserDto[]
 
-  @ViewChild(MatPaginator, { static: false })
-  paginator: MatPaginator = new MatPaginator(new MatPaginatorIntl(), ChangeDetectorRef.prototype)
+  totalElements: number = 10
+  rows: number = 10
+  first: number = 0
 
-  pageIndex: number = 0
-  totalElements: number = 24
-  pageSize: number = 5
-  pageSizeOptions: number[] = [5, 10, 25, 50]
+  sortBy: string = 'username'
+  direction: string = 'asc'
 
-  username: string = ''
+  username: string
 
   constructor(
     private _snackBar: MatSnackBar,
-    private _router: Router
+    private _router: Router,
+    private _userService: UserService
   ) {
     this.username = localStorage.getItem('username') || 'Usuário'
   }
 
-  ngAfterViewInit(): void {
-    this.tableDataSource.paginator = this.paginator
+  ngOnInit(): void {
+    this.usersRequest()
   }
 
   handlePageEvent(event: any) {
-    this.pageIndex = event.pageIndex
-    this.pageSize = event.pageSize
+    this.first = event.first
+    this.rows = event.rows
+
+    this.usersRequest()
+  }
+
+  handleSortEvent(event: any) {
+    this.sortBy = event.field
+    this.direction = event.order === 1 ? 'asc' : 'desc'
+
+    this.usersRequest()
   }
 
   onMenuClick() {
@@ -54,19 +62,48 @@ export class UserComponent implements AfterViewInit {
     this.showSnackBar('Relatório de usuários não implementado!!!', 'Ok!', 3000)
   }
 
-  onGetUser() {
-    this._router.navigate(['auth/user/info'])
+  onGetUser(user: UserDto) {
+    this._router.navigate([`auth/user/info/${user.key}`])
   }
 
-  onEditUser() {
-    this._router.navigate(['auth/user/edit'])
+  onEditUser(user: UserDto) {
+    this._router.navigate([`auth/user/edit/${user.key}`])
   }
 
-  onDeleteUser() {
-    this._router.navigate(['auth/user/delete'])
+  onDeleteUser(user: UserDto) {
+    this.showSnackBar('Exclusão não implementada!!!', 'Ok!', 3000)
+  }
+
+  private usersRequest() {
+    
+
+    const accessToken = localStorage.getItem('accessToken') || ''
+    const pageable: Pageable = {
+      pageNumber: this.first * this.rows,
+      pageSize: this.rows,
+      sortBy: this.sortBy,
+      direction: this.direction
+    }
+
+    this._userService.customPageable(accessToken, pageable)
+      .subscribe({
+        next: (data: UserDtoList) => {
+          this.tableValue = data._embedded.userVOList
+
+          this.totalElements = data.page.totalElements
+        },
+        error: (err) => {
+          this.showSnackBar('Erro ao carregar usuários. Tenta novamente mais tarde!', 'Ok!', 3000)
+          console.log(err)
+        }
+      })
   }
 
   private showSnackBar(message: string, action: string, snackBarDuration: number) {
     this._snackBar.open(message, action, { duration: snackBarDuration })
+  }
+
+  click(event: any) {
+    console.log(event);
   }
 }

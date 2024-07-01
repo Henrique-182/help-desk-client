@@ -11,74 +11,69 @@
   </div>
 
   <div class="user-container__table">
-    <div>
-      <table mat-table [dataSource]="tableDataSource" class="mat-elevation-z8">
-
-        <ng-container matColumnDef="key">
-          <th mat-header-cell *matHeaderCellDef> Id </th>
-          <td mat-cell *matCellDef="let user"> {{user.key}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="username">
-          <th mat-header-cell *matHeaderCellDef> Nome de usuário </th>
-          <td mat-cell *matCellDef="let user"> {{user.username}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="fullname">
-          <th mat-header-cell *matHeaderCellDef> Nome completo </th>
-          <td mat-cell *matCellDef="let user"> {{user.fullname}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="accountNonExpired">
-          <th mat-header-cell *matHeaderCellDef> Conta não expirada </th>
-          <td mat-cell *matCellDef="let user"> {{user.accountNonExpired | booleanToYn}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="accountNonLocked">
-          <th mat-header-cell *matHeaderCellDef> Conta não bloqueada </th>
-          <td mat-cell *matCellDef="let user"> {{user.accountNonLocked | booleanToYn}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="credentialsNonExpired">
-          <th mat-header-cell *matHeaderCellDef> Credenciais não expiradas </th>
-          <td mat-cell *matCellDef="let user"> {{user.credentialsNonExpired | booleanToYn}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="enabled">
-          <th mat-header-cell *matHeaderCellDef> Ativo </th>
-          <td mat-cell *matCellDef="let user"> {{user.enabled | booleanToYn}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef>
-            <button mat-mini-fab aria-label="User Reports" (click)="onUserReport()">
-              <mat-icon>description</mat-icon>
-            </button>
-            <button mat-mini-fab aria-label="Add user" color="primary" (click)="onAddUser()">
-              <mat-icon>add_circle</mat-icon>
-            </button>
+    <p-table [value]="tableValue" 
+      [lazy]="true" 
+      [rows]="rows" 
+      [totalRecords]="totalElements"
+      paginator="true" 
+      [showCurrentPageReport]="true" 
+      currentPageReportTemplate="{first} - {last} de um total de {totalRecords} usuários"
+      (onPage)="handlePageEvent($event)" 
+      [rowsPerPageOptions]="[5, 10, 25, 50]"
+      [sortField]="'id'"
+      (onSort)="handleSortEvent($event)"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="id">
+            Id <p-sortIcon field="id" />
           </th>
-          <td mat-cell *matCellDef="let user">
-            <button mat-mini-fab color="accent" (click)="onGetUser()">
-              <mat-icon>info</mat-icon>
-            </button>
-            <button mat-mini-fab color="primary" (click)="onEditUser()">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-mini-fab color="warn" (click)="onDeleteUser()">
-              <mat-icon>delete</mat-icon>
-            </button>
+          <th pSortableColumn="username">
+            Nome de usuário <p-sortIcon field="username" />
+          </th>
+          <th pSortableColumn="fullname">
+            Nome Completo <p-sortIcon field="fullname" />
+          </th>
+          <th>
+            Ativo
+          </th>
+          <th>
+            Ações
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{ user.key }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.fullname }}</td>
+          <td>{{ user.enabled | booleanToYn }}</td>
+          <td>
+            <p-button 
+              pRipple
+              icon="pi pi-info-circle" 
+              [rounded]="true" 
+              [outlined]="true" 
+              severity="info" 
+              (click)="onGetUser(user)" />
+            <p-button 
+              pRipple
+              icon="pi pi-pencil" 
+              [rounded]="true" 
+              [outlined]="true" 
+              severity="success" 
+              (click)="onEditUser(user)" />
+            <p-button 
+              pRipple 
+              icon="pi pi-trash" 
+              severity="danger" 
+              [rounded]="true" 
+              [outlined]="true" 
+              [hidden]="username === user.username"
+              (click)="onDeleteUser(user)" />
           </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-    </div>
-
-    <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-      [pageIndex]="pageIndex" (page)="handlePageEvent($event)">
-
-    </mat-paginator>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
 </div>
