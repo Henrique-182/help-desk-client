@@ -21,8 +21,12 @@ export class UserComponent implements OnInit {
 
   sortBy: string = 'username'
   direction: string = 'asc'
+  queryUsername: string = ''
+  queryPermission: string = ''
 
   username: string
+
+  permissions: object[]
 
   constructor(
     private _snackBar: MatSnackBar,
@@ -30,6 +34,12 @@ export class UserComponent implements OnInit {
     private _userService: UserService
   ) {
     this.username = localStorage.getItem('username') || 'Usuário'
+
+    this.permissions = [
+      { label: 'Administrador', value: 'ADMIN' },
+      { label: 'Gerente', value: 'MANAGER' },
+      { label: 'Comum', value: 'COMMON_USER' },
+    ]
   }
 
   ngOnInit(): void {
@@ -46,8 +56,17 @@ export class UserComponent implements OnInit {
   handleSortEvent(event: any) {
     this.sortBy = event.field
     this.direction = event.order === 1 ? 'asc' : 'desc'
+    this.first = 0
 
     this.usersRequest()
+  }
+
+  getPermissionSeverity(permission: string): "success" | "secondary" | "info" | "warning" | "danger" | "contrast" | undefined {
+
+    return permission === 'ADMIN' ? 'danger'
+        : permission === 'MANAGER' ? 'warning'
+        : permission === 'COMMON_USER' ? 'info'
+        : 'contrast'
   }
 
   onMenuClick() {
@@ -74,23 +93,46 @@ export class UserComponent implements OnInit {
     this.showSnackBar('Exclusão não implementada!!!', 'Ok!', 3000)
   }
 
-  private usersRequest() {
-    
+  onRefreshTable() {
+    this.usersRequest()
+  }
 
+  onClearFilters() {
+    this.queryUsername = ''
+    this.queryPermission = ''
+
+    this.rows = 10
+    this.first = 0
+
+    this.usersRequest()
+  }
+
+  private usersRequest() {
     const accessToken = localStorage.getItem('accessToken') || ''
     const pageable: Pageable = {
-      pageNumber: this.first * this.rows,
+      pageNumber: Math.floor(this.first / this.rows),
       pageSize: this.rows,
       sortBy: this.sortBy,
-      direction: this.direction
+      direction: this.direction,
+      queryParams: new Map<string, string>([
+        ['name', this.queryUsername],
+        ['permission', this.queryPermission]
+      ])
     }
 
     this._userService.customPageable(accessToken, pageable)
       .subscribe({
         next: (data: UserDtoList) => {
-          this.tableValue = data._embedded.userVOList
+          if (data.page.totalElements !== 0) {
+            this.tableValue = data._embedded.userVOList
 
-          this.totalElements = data.page.totalElements
+            this.totalElements = data.page.totalElements
+          } else {
+            this.tableValue = []
+            this.rows = 0
+            this.first = 0
+            this.totalElements = 0
+          }
         },
         error: (err) => {
           this.showSnackBar('Erro ao carregar usuários. Tenta novamente mais tarde!', 'Ok!', 3000)

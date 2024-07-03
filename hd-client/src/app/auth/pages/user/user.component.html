@@ -4,7 +4,7 @@
       <button mat-icon-button (click)="onMenuClick()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span>Lista de Usuários</span>
+      <span>Lista de usuários</span>
       <span class="example-spacer"></span>
       <span>Olá, {{ username }}</span>
     </mat-toolbar>
@@ -20,34 +20,122 @@
       currentPageReportTemplate="{first} - {last} de um total de {totalRecords} usuários"
       (onPage)="handlePageEvent($event)" 
       [rowsPerPageOptions]="[5, 10, 25, 50]"
-      [sortField]="'id'"
+      [sortField]="'username'"
       (onSort)="handleSortEvent($event)"
     >
+
+      <!-- TABLE CAPTION -->
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+          <div>
+            <p-button [outlined]="true" icon="pi pi-filter-slash" label="Limpar filtros" (click)="onClearFilters()" class="margin-right-1-em" />
+            <p-button [outlined]="true" icon="pi pi-refresh" label="Recarregar" (click)="onRefreshTable()" />
+          </div>
+          <div>
+            <p-button [outlined]="true" severity="success" icon="pi pi-plus" label="Incluir" (click)="onAddUser()" class="margin-right-1-em" />
+            <p-button [outlined]="true" severity="help" icon="pi pi-file-pdf" label="Report" (click)="onUserReport()" />
+          </div>
+      </div>
+      </ng-template>
+
+      <!-- TABLE HEADER -->
       <ng-template pTemplate="header">
         <tr>
           <th pSortableColumn="id">
             Id <p-sortIcon field="id" />
           </th>
           <th pSortableColumn="username">
-            Nome de usuário <p-sortIcon field="username" />
+            <div class="flex justify-content-between align-items-center">
+              <div>
+                Nome de usuário 
+                <p-sortIcon field="username" />
+              </div>
+              <div>
+                <p-columnFilter
+                  ariaLabel="Filtra usuário"
+                  display="menu"
+                  [showMatchModes]="false"
+                  [showOperator]="false"
+                  [showAddButton]="false"
+                  [showClearButton]="false"
+                >
+                  <ng-template pTemplate="filter">
+                    <input type="text" placeholder="Busca por nome" pInputText [(ngModel)]="queryUsername">
+                  </ng-template>
+                </p-columnFilter>
+              </div>
+            </div>
           </th>
           <th pSortableColumn="fullname">
-            Nome Completo <p-sortIcon field="fullname" />
+            <div class="flex justify-content-between align-items-center">
+              <div>
+                Nome Completo 
+                <p-sortIcon field="fullname" />
+              </div>
+              <p-columnFilter
+                ariaLabel="Filtra usuário"
+                display="menu"
+                [showMatchModes]="false"
+                [showOperator]="false"
+                [showAddButton]="false"
+                [showClearButton]="false"
+              >
+                <ng-template pTemplate="filter">
+                  <input type="text" placeholder="Busca por nome" pInputText [(ngModel)]="queryUsername">
+                </ng-template>
+              </p-columnFilter>
+            </div>
           </th>
           <th>
             Ativo
+          </th>
+          <th>
+            <div class="flex justify-content-between align-items-center">
+                <div>
+                  Permissões
+                </div>
+                <div>
+                  <p-columnFilter 
+                    field="enabled"
+                    ariaLabel="Filtra usuário"
+                    display="menu"
+                    [showMatchModes]="false"
+                    [showOperator]="false"
+                    [showAddButton]="false"
+                    [showClearButton]="false"
+                  >
+                    <ng-template pTemplate="filter">
+                      <p-dropdown [(ngModel)]="queryPermission" [options]="permissions" placeholder="Busca por permissão">
+                          <ng-template let-permission pTemplate="item">
+                              <p-tag [value]="permission.label" />
+                          </ng-template>
+                      </p-dropdown>
+                    </ng-template>
+                  </p-columnFilter>
+                </div>
+            </div>           
           </th>
           <th>
             Ações
           </th>
         </tr>
       </ng-template>
+
+      <!-- TABLE BODY -->
       <ng-template pTemplate="body" let-user>
         <tr>
           <td>{{ user.key }}</td>
           <td>{{ user.username }}</td>
           <td>{{ user.fullname }}</td>
           <td>{{ user.enabled | booleanToYn }}</td>
+          <td>
+            <p-tag 
+              *ngFor="let d of user.permissions" 
+              [value]="d.description | userPermission" 
+              [severity]="getPermissionSeverity(d.description)" 
+              [rounded]="true"
+            />
+          </td>
           <td>
             <p-button 
               pRipple

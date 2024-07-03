@@ -26,10 +26,8 @@ export class UserService {
       .set('pageSize', pageable.pageSize.toString())
       .set('sortBy', pageable.sortBy)
       .set('direction', pageable.direction)
-
-    pageable.queryParams?.forEach((key, value) => {
-      params.set(key, value)
-    })
+      .set('name', pageable.queryParams?.get('name') || '')
+      .set('permission', pageable.queryParams?.get('permission') || '')
 
     return this._httpClient
               .get<UserDtoList>(

@@ -5,13 +5,15 @@ import { LoginComponent } from './pages/login/login.component';
 import { SharedModule } from '../shared/shared.module';
 import { UserComponent } from './pages/user/user.component';
 import { UserFormComponent } from './pages/user-form/user-form.component';
+import { UserPermissionPipe } from './pipes/user-permission.pipe';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     UserComponent,
-    UserFormComponent
+    UserFormComponent,
+    UserPermissionPipe
   ],
   imports: [
     CommonModule,
