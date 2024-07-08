@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthRoutingModule } from './auth-routing.module';
-import { LoginComponent } from './pages/login/login.component';
+import { LoginPageComponent } from './pages/login/login-page.component';
 import { SharedModule } from '../shared/shared.module';
-import { UserComponent } from './pages/user/user.component';
-import { UserFormComponent } from './pages/user-form/user-form.component';
+import { UsersPageComponent } from './pages/users-page/users-page.component';
+import { ManageUserPageComponent } from './pages/manage-user-page/manage-user-page.component';
 import { UserPermissionPipe } from './pipes/user-permission.pipe';
 
 
 @NgModule({
   declarations: [
-    LoginComponent,
-    UserComponent,
-    UserFormComponent,
+    LoginPageComponent,
+    UsersPageComponent,
+    ManageUserPageComponent,
     UserPermissionPipe
   ],
   imports: [
@@ -21,9 +21,9 @@ import { UserPermissionPipe } from './pipes/user-permission.pipe';
     SharedModule
   ],
   exports: [
-    LoginComponent,
-    UserComponent,
-    UserFormComponent
+    LoginPageComponent,
+    UsersPageComponent,
+    ManageUserPageComponent
   ]
 })
 export class AuthModule { }

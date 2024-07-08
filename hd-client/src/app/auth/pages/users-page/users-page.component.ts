@@ -9,11 +9,11 @@ import { firstValueFrom } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrl: './user.component.scss'
+  selector: 'app-users-page',
+  templateUrl: './users-page.component.html',
+  styleUrl: './users-page.component.scss'
 })
-export class UserComponent implements OnInit {
+export class UsersPageComponent implements OnInit {
 
   tableValue: UserDto[] = [] as UserDto[]
 

@@ -6,14 +6,14 @@ import { UserDto } from '../../model/user-dto';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserPermission } from '../../model/user-permission';
 import { UserService } from '../../services/user.service';
-import { first, firstValueFrom, lastValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
-  selector: 'app-user-form',
-  templateUrl: './user-form.component.html',
-  styleUrl: './user-form.component.scss'
+  selector: 'app-manage-user-page',
+  templateUrl: './manage-user-page.component.html',
+  styleUrl: './manage-user-page.component.scss'
 })
-export class UserFormComponent implements OnInit {
+export class ManageUserPageComponent implements OnInit {
 
   action: FormAction
   username: string
@@ -102,7 +102,7 @@ export class UserFormComponent implements OnInit {
   }
 
   onReturn() {
-    this._router.navigate(['auth/user'])
+    this._router.navigate(['auth/users'])
   }
 
   async onDelete() {

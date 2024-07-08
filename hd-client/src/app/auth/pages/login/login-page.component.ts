@@ -5,11 +5,11 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  selector: 'app-login-page',
+  templateUrl: './login-page.component.html',
+  styleUrl: './login-page.component.scss'
 })
-export class LoginComponent implements OnInit {
+export class LoginPageComponent implements OnInit {
 
   loginForm: FormGroup
 
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('accessToken', data.accessToken)
           localStorage.setItem('username', data.username)
 
-          this.router.navigate(['auth/user'])
+          this.router.navigate(['auth/users'])
         },
         error: (error) => {
           const statusCode: number = error.status

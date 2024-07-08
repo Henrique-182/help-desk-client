@@ -1,14 +1,14 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { LoginComponent } from "./pages/login/login.component";
-import { UserComponent } from "./pages/user/user.component";
-import { UserFormComponent } from "./pages/user-form/user-form.component";
+import { LoginPageComponent } from "./pages/login/login-page.component";
+import { UsersPageComponent } from "./pages/users-page/users-page.component";
+import { ManageUserPageComponent } from "./pages/manage-user-page/manage-user-page.component";
 
 const routes: Routes = [
-    { path: 'auth/login', component: LoginComponent },
-    { path: 'auth/user', component: UserComponent },
-    { path: 'auth/user/info/:id', component: UserFormComponent },
-    { path: 'auth/user/edit/:id', component: UserFormComponent }
+    { path: 'auth/login', component: LoginPageComponent },
+    { path: 'auth/users', component: UsersPageComponent },
+    { path: 'auth/user/info/:id', component: ManageUserPageComponent },
+    { path: 'auth/user/edit/:id', component: ManageUserPageComponent }
 ]
 
 @NgModule({
