@@ -16,73 +16,61 @@
             </mat-card-header>
             <mat-card-content>
                 <form [formGroup]="userForm" class="form">
-                    <mat-form-field>
-                        <mat-label>Nome de usuário</mat-label>
-                        <input matInput type="text" formControlName="username">
-                        <button mat-icon-button matSuffix>
-                            <mat-icon>person</mat-icon>
-                        </button>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Nome completo</mat-label>
-                        <input matInput type="text" formControlName="fullname">
-                        <button mat-icon-button matSuffix>
-                            <mat-icon>person</mat-icon>
-                        </button>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Conta não expirada</mat-label>
-                        <mat-select formControlName="accountNonExpired">
-                            <mat-option [value]="true">Sim</mat-option>
-                            <mat-option [value]="false">Não</mat-option>
-                        </mat-select>
-                        <button mat-icon-button matSuffix>
-                            <mat-icon>{{ userForm.value.accountNonExpired ? 'toggle_on' : 'toggle_off' }}</mat-icon>
-                        </button>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Conta não bloqueada</mat-label>
-                        <mat-select formControlName="accountNonLocked">
-                            <mat-option [value]="true">Sim</mat-option>
-                            <mat-option [value]="false">Não</mat-option>
-                        </mat-select>
-                        <button mat-icon-button matSuffix>
-                            <mat-icon>{{ userForm.value.accountNonLocked ? 'toggle_on' : 'toggle_off' }}</mat-icon>
-                        </button>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Credenciais não expiradas</mat-label>
-                        <mat-select formControlName="credentialsNonExpired">
-                            <mat-option [value]="true">Sim</mat-option>
-                            <mat-option [value]="false">Não</mat-option>
-                        </mat-select>
-                        <button mat-icon-button matSuffix>
-                            <mat-icon>{{ userForm.value.credentialsNonExpired ? 'toggle_on' : 'toggle_off' }}</mat-icon>
-                        </button>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Ativo</mat-label>
-                        <mat-select formControlName="enabled" [(value)]="userForm.value.enabled">
-                            <mat-option [value]="true">Sim</mat-option>
-                            <mat-option [value]="false">Não</mat-option>
-                        </mat-select>
-                        <button mat-icon-button matSuffix>
-                            <mat-icon>{{ userForm.value.enabled ? 'toggle_on' : 'toggle_off' }}</mat-icon>
-                        </button>
-                    </mat-form-field>
+                    <div class="flex flex-direction-column">
+                        <label for="username">Nome de usuário</label>
+                        <input pInputText formControlName="username" />
+                    </div>
+
+                    <div class="flex flex-direction-column">
+                        <label for="fullname">Nome completo</label>
+                        <input pInputText formControlName="fullname" />
+                    </div>
+
+                    <div class="flex flex-direction-row justify-content-between align-items-center">
+                        <div class="flex flex-direction-column">
+                            <label for="accountNonExpired">Conta não expirada</label>
+                            <p-inputSwitch formControlName="accountNonExpired" />
+                        </div>
+    
+                        <div class="flex flex-direction-column">
+                            <label for="accountNonLocked">Conta não bloqueada</label>
+                            <p-inputSwitch formControlName="accountNonLocked" />
+                        </div>
+    
+                        <div class="flex flex-direction-column">
+                            <label for="credentialsNonExpired">Credenciais não expiradas</label>
+                            <p-inputSwitch formControlName="credentialsNonExpired" />
+                        </div>
+                        
+                        <div class="flex flex-direction-column">
+                            <label for="enabled">Ativo</label>
+                            <p-inputSwitch formControlName="enabled" />
+                        </div>
+                    </div>
+                        
+                    <div class="flex flex-direction-column">
+                        <label for="permissions">Permissões</label>
+                        <p-multiSelect
+                            [options]="permissionsList" 
+                            formControlName="permissions" 
+                            optionLabel="description" 
+                            placeholder="Selecione permissões"
+                            [showClear]="false"
+                            [showHeader]="false"
+                        />
+                    </div>
                 </form>
             </mat-card-content>
             <mat-card-actions>
                 <ng-container *ngIf="isFormDisabled; else buttomNotEditModeTemplate">
-                    <button mat-raised-button color="primary" (click)="onEdit()">Editar</button>
-                    <button mat-raised-button color="accent" (click)="onReturn()">Voltar</button>
-                    <button mat-raised-button color="warn" (click)="onDelete()">Excluir</button>
+                    <p-button icon="pi pi-user-edit" text="true" label="Editar" [severity]="undefined" (click)="onEdit()" size="small" />
+                    <p-button icon="pi pi-step-backward" text="true" label="Voltar" severity="help" (click)="onReturn()" size="small" />
+                    <p-button icon="pi pi-trash" text="true" label="Excluir" severity="danger" (click)="onDelete()" size="small" [hidden]="username === userForm.value.username" />
                 </ng-container>
                 <ng-template #buttomNotEditModeTemplate>
-                    <button mat-raised-button color="primary" (click)="onSave()">Salvar</button>
-                    <button mat-raised-button color="accent" (click)="onCancel()">Cancelar</button>
+                    <p-button icon="pi pi-save" text="true" label="Salvar" severity="success" (click)="onSave()" size="small" />
+                    <p-button icon="pi pi-undo" text="true" label="Cancelar" severity="warning" (click)="onCancel()" size="small" />
                 </ng-template>
-
             </mat-card-actions>
         </mat-card>
     </div>

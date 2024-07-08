@@ -164,4 +164,27 @@
       </ng-template>
     </p-table>
   </div>
+  <div class="card flex justify-content-center">
+      <p-dialog header="Adicionar usuário" [modal]="true" [(visible)]="isAddUserDialogVisible" [style]="{ width: '30em' }">
+          <form [formGroup]="userForm" class="flex flex-direction-column">
+            <div class="flex flex-direction-row align-items-center justify-content-between margin-bottom-05-em">
+              <label for="username">Nome de usuário</label>
+              <input pInputText formControlName="username" />
+            </div>
+            <div class="flex flex-direction-row align-items-center justify-content-between margin-bottom-05-em">
+              <label for="fullname">Nome completo</label>
+              <input pInputText formControlName="fullname" />
+            </div>
+            <div class="flex flex-direction-row align-items-center justify-content-between margin-bottom-2-em">
+              <label for="password">Senha</label>
+              <input pInputText formControlName="password" />
+            </div>
+          </form>
+          
+          <div class="flex flex-direction-row justify-content-end gap-05-em">
+            <p-button icon="pi pi-undo" label="Cancelar" severity="warning" (click)="isAddUserDialogVisible = false" size="small" />
+            <p-button icon="pi pi-save" label="Salvar" severity="success" (click)="onSave()" size="small" />
+          </div>
+      </p-dialog>
+  </div>
 </div>

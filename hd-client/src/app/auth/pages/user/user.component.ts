@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { UserDto } from '../../model/user-dto';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { Pageable } from '../../../shared/model/pageable/pageable';
 import { UserDtoList } from '../../model/user-dto-list';
+import { firstValueFrom } from 'rxjs';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-user',
@@ -28,9 +30,18 @@ export class UserComponent implements OnInit {
 
   permissions: object[]
 
+  isAddUserDialogVisible: boolean = false
+
+  userForm: FormGroup = this._formBuilder.group({
+    username: [null],
+    fullname: [null],
+    password: [null]
+  })
+
   constructor(
     private _snackBar: MatSnackBar,
     private _router: Router,
+    private _formBuilder: FormBuilder,
     private _userService: UserService
   ) {
     this.username = localStorage.getItem('username') || 'Usuário'
@@ -74,7 +85,13 @@ export class UserComponent implements OnInit {
   }
 
   onAddUser() {
-    this._router.navigate(['auth/user/add'])
+    this.isAddUserDialogVisible = true
+
+    this.userForm = this._formBuilder.group({
+      username: new FormControl(),
+      fullname: new FormControl(),
+      password: new FormControl()
+    })
   }
 
   onUserReport() {
@@ -89,8 +106,35 @@ export class UserComponent implements OnInit {
     this._router.navigate([`auth/user/edit/${user.key}`])
   }
 
-  onDeleteUser(user: UserDto) {
-    this.showSnackBar('Exclusão não implementada!!!', 'Ok!', 3000)
+  async onSave() {
+
+    try {
+      const user$ = this._userService.save(this.userForm.value)
+
+      const user = await firstValueFrom(user$)
+
+      this.showSnackBar('Usuário salvo com sucesso!', 'Ok!', 3000)
+
+      this._router.navigate([`auth/user/info/${user.key}`])
+    } catch (err) {
+      this.showSnackBar('Não foi possível salvar o usuário. Tente novamente mais tarde!', 'Ok!', 3000)
+      console.log(err);
+    }
+  }
+
+  async onDeleteUser(user: UserDto) {
+    try {
+      const user$ = this._userService.deleteById(user.key)
+
+      await firstValueFrom(user$)
+      
+      this.showSnackBar('Usuário excluído com sucesso!', 'Ok!', 3000)
+
+      this.usersRequest()
+    } catch (err) {
+      this.showSnackBar('Não foi possível excluir o usuário. Tente novamente mais tarde!', 'Ok!', 3000)
+      console.log(err);
+    }
   }
 
   onRefreshTable() {
@@ -108,7 +152,6 @@ export class UserComponent implements OnInit {
   }
 
   private usersRequest() {
-    const accessToken = localStorage.getItem('accessToken') || ''
     const pageable: Pageable = {
       pageNumber: Math.floor(this.first / this.rows),
       pageSize: this.rows,
@@ -120,7 +163,7 @@ export class UserComponent implements OnInit {
       ])
     }
 
-    this._userService.customPageable(accessToken, pageable)
+    this._userService.customPageable(pageable)
       .subscribe({
         next: (data: UserDtoList) => {
           if (data.page.totalElements !== 0) {
@@ -143,9 +186,5 @@ export class UserComponent implements OnInit {
 
   private showSnackBar(message: string, action: string, snackBarDuration: number) {
     this._snackBar.open(message, action, { duration: snackBarDuration })
-  }
-
-  click(event: any) {
-    console.log(event);
   }
 }

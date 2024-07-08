@@ -2,7 +2,9 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Pageable } from '../../shared/model/pageable/pageable';
 import { UserDtoList } from '../model/user-dto-list';
-import { first } from 'rxjs';
+import { first, Observable } from 'rxjs';
+import { UserDto } from '../model/user-dto';
+import { AccountCredentials } from '../model/account-credentials';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +17,10 @@ export class UserService {
     private _httpClient: HttpClient
   ) { }
 
-  customPageable(accessToken: string, pageable: Pageable) {
+  customPageable(pageable: Pageable) {
 
     let headers: HttpHeaders = new HttpHeaders({
-      'Authorization': 'Bearer ' + accessToken
+      'Authorization': 'Bearer ' + this.getAccessToken()
     })
 
     let params = new HttpParams()
@@ -30,13 +32,83 @@ export class UserService {
       .set('permission', pageable.queryParams?.get('permission') || '')
 
     return this._httpClient
-              .get<UserDtoList>(
+      .get<UserDtoList>(
+        this.USER_URL,
+        { headers, params }
+      )
+      .pipe(
+        first()
+      )
+  }
+
+  findById(id: number): Observable<UserDto> {
+
+    let headers: HttpHeaders = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.getAccessToken()
+    })
+
+    return this._httpClient
+      .get<UserDto>(
+        this.USER_URL + `/${id}`,
+        { headers }
+      )
+      .pipe(
+        first()
+      )
+  }
+
+  save(body: AccountCredentials) {
+
+    let headers: HttpHeaders = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.getAccessToken()
+    })
+
+    return this._httpClient
+              .post<UserDto>(
                 this.USER_URL,
-                { headers, params }
+                body,
+                { headers }
               )
               .pipe(
                 first()
               )
+  }
+
+  updateById(id: number, body: UserDto) {
+
+    let headers: HttpHeaders = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.getAccessToken()
+    })
+
+    return this._httpClient
+      .put<UserDto>(
+        this.USER_URL + `/${id}`,
+        body,
+        { headers }
+      )
+      .pipe(
+        first()
+      )
+  }
+
+  deleteById(id: number) {
+
+    let headers: HttpHeaders = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.getAccessToken()
+    })
+
+    return this._httpClient
+      .delete(
+        this.USER_URL + `/${id}`,
+        { headers }
+      ).pipe(
+        first()
+      )
+  }
+
+  private getAccessToken(): string {
+
+    return localStorage.getItem('accessToken') || ''
   }
 
 }
