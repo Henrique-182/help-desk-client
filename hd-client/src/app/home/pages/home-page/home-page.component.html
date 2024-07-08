@@ -1,0 +1,51 @@
+<div class="home-page__container height-100">
+    <div class="home-page__toolbar">
+        <mat-toolbar color="primary" class="flex flex-row justify-content-space-between align-items-center">
+            <div class="flex flex-row align-items-center">
+                <button mat-icon-button (click)="onMenuClick()">
+                    <mat-icon>menu</mat-icon>
+                </button>
+                <span>Menu Principal</span>
+            </div>
+            <div>
+                <span>Olá, {{ username }}</span>
+            </div>
+        </mat-toolbar>
+    </div>
+    <div class="home-page__card">
+        <div class="flex flex-row justify-content-space-evenly margin-top-5-em">
+            <p-card header="Gerenciar Usuários" [style]="{ width: '360px' }">
+                <ng-template pTemplate="header">
+                    <img alt="Card" src="https://media.istockphoto.com/id/1390481905/photo/multi-factor-authentication-user-login-cybersecurity-privacy-protect-data-internet-network.jpg?b=1&s=612x612&w=0&k=20&c=27pBy4JXxwEIZ2qLyd7yvxSxuvma3mGRZdqvmkiKDvI=" />
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <p-button label="Acessar" severity="info" (click)="onGoToUsersPage()" />
+                </ng-template>
+            </p-card>
+            <p-card header="Base de Conhecimento" [style]="{ width: '360px' }">
+                <ng-template pTemplate="header">
+                    <img alt="Card" src="https://images.pexels.com/photos/220326/pexels-photo-220326.jpeg?auto=compress&cs=tinysrgb&w=600" />
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <p-button label="Acessar" severity="info" (click)="onGoToKnowledgePage()" />
+                </ng-template>
+            </p-card>
+            <p-card header="Chat" [style]="{ width: '360px' }">
+                <ng-template pTemplate="header">
+                    <img alt="Card" src="https://media.istockphoto.com/id/1413855189/photo/chat-bot-service-concept-virtual-assistant-and-crm-software-automation-technology-customer.jpg?b=1&s=612x612&w=0&k=20&c=xp4_9fh9imZOgEyzycEa0HCDWkkEG2J3GqzppxRNAnc=" />
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <p-button label="Acessar" severity="info" (click)="onGoToChatPage()" />
+                </ng-template>
+            </p-card>
+            <p-card header="Relatórios" [style]="{ width: '360px' }">
+                <ng-template pTemplate="header">
+                    <img alt="Card" src="https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=600" />
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <p-button label="Acessar" severity="info" (click)="onGoToReportsPage()" />
+                </ng-template>
+            </p-card>
+        </div>
+    </div>
+</div>

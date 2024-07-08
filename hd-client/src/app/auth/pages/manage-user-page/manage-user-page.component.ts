@@ -113,7 +113,7 @@ export class ManageUserPageComponent implements OnInit {
       
       this.showSnackBar('Usuário excluído com sucesso!', 'Ok!', 3000)
 
-      this._router.navigate(['auth/user'])
+      this._router.navigate(['auth/users'])
     } catch (err) {
       this.showSnackBar('Não foi possível excluir o usuário. Tente novamente mais tarde!', 'Ok!', 3000)
       console.log(err);

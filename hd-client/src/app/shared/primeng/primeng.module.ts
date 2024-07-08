@@ -12,6 +12,9 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { DialogModule } from 'primeng/dialog';
+import { SidebarModule } from 'primeng/sidebar';
+import { CardModule } from 'primeng/card';
+import { FieldsetModule } from 'primeng/fieldset';
 
 @NgModule({
   exports: [
@@ -27,7 +30,10 @@ import { DialogModule } from 'primeng/dialog';
     MultiSelectModule,
     InputSwitchModule,
     ToggleButtonModule,
-    DialogModule
+    DialogModule,
+    SidebarModule,
+    CardModule,
+    FieldsetModule
   ]
 })
 export class PrimengModule { }

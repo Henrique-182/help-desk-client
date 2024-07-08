@@ -40,7 +40,7 @@ export class LoginPageComponent implements OnInit {
           localStorage.setItem('accessToken', data.accessToken)
           localStorage.setItem('username', data.username)
 
-          this.router.navigate(['auth/users'])
+          this.router.navigate(['/home/page'])
         },
         error: (error) => {
           const statusCode: number = error.status
