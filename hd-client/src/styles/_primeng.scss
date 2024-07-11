@@ -1,3 +1,45 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
+@import "./variables";
+
+.p-toolbar {
+    margin-left: 70px;
+    background: $primary-color;
+    border-radius: 0;
+    border: 0;
+    left: 70px;
+    max-height: 56px;
+    flex-wrap: nowrap;
+}
+
+.p-sidebar-left {
+    top: 56px;
+    width: 70px;
+    border-radius: 0;
+    border: 0;
+    box-shadow: 2px 0 4px -1px #0003,4px 0 5px #00000024,1px 0 10px #0000001f;
+    background-color: #fff;
+}
+
+// Sidebar close button
+.p-sidebar-header {
+    display: none;
+}
+
+.p-breadcrumb {
+    border-radius: 0;
+    border: 0;
+    background-color: #fff;
+}
+
+.p-datatable-header {
+    background: #fff;
+    border: 0;
+}
+
+.p-datatable-thead th {
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    border-top: 1px solid #e5e7eb;
+}

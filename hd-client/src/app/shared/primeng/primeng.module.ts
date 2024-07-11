@@ -15,6 +15,7 @@ import { DialogModule } from 'primeng/dialog';
 import { SidebarModule } from 'primeng/sidebar';
 import { CardModule } from 'primeng/card';
 import { FieldsetModule } from 'primeng/fieldset';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @NgModule({
   exports: [
@@ -33,7 +34,8 @@ import { FieldsetModule } from 'primeng/fieldset';
     DialogModule,
     SidebarModule,
     CardModule,
-    FieldsetModule
+    FieldsetModule,
+    BreadcrumbModule
   ]
 })
 export class PrimengModule { }

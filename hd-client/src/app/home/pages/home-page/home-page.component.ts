@@ -27,7 +27,7 @@ export class HomePageComponent {
   }
 
   onGoToKnowledgePage() {
-    this.showSnackBar('Base de conhecimento não implementada!!!', 'Ok!', 3000)
+    this._router.navigate(['/knowledge/list'])
   }
 
   onGoToChatPage() {

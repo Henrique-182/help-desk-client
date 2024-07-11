@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeModule } from './home/home.module';
+import { KnowledgeModule } from './knowledge/knowledge.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HomeModule } from './home/home.module';
     AuthModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    HomeModule
+    HomeModule,
+    KnowledgeModule
   ],
   providers: [
     provideAnimationsAsync()
