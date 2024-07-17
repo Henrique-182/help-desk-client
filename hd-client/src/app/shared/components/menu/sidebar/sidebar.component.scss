@@ -1,0 +1,24 @@
+.icons p-button {
+    margin-top: 1em;
+
+    cursor: pointer;
+
+    i {
+        color: #515C66;
+        font-size: 1.5rem;
+    }
+}
+
+::ng-deep .p-sidebar-left {
+    top: 56px;
+    width: 70px;
+    border-radius: 0;
+    border: 0;
+    box-shadow: 2px 0 4px -1px #0003,4px 0 5px #00000024,1px 0 10px #0000001f;
+    background-color: #fff;
+}
+
+// Sidebar close button
+::ng-deep .p-sidebar-header {
+    display: none;
+}

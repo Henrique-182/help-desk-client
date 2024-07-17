@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserPermission } from '../../model/user-permission';
 import { UserService } from '../../services/user.service';
 import { firstValueFrom } from 'rxjs';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-manage-user-page',
@@ -15,8 +16,13 @@ import { firstValueFrom } from 'rxjs';
 })
 export class ManageUserPageComponent implements OnInit {
 
+  id: number = 0
   action: FormAction
   username: string
+
+  breadCrumbItems: MenuItem[] = [
+    { label: 'Lista de usuários', url: '/auth/users' },
+  ]
 
   userForm: FormGroup = this._formBuilder.group({
     username: [null],
@@ -46,7 +52,13 @@ export class ManageUserPageComponent implements OnInit {
   ) {
     this.username = localStorage.getItem('username') || 'Usuário'
     this.action = this.toolbarText(this._router.url)
-    this.isFormDisabled = (this.action === FormAction.Get || this.action === FormAction.Delete)
+    this.isFormDisabled = this.action === FormAction.Get
+    this.id = Number.parseInt(this._route.snapshot.paramMap.get('id') || '0')
+
+    this.breadCrumbItems.push(
+      this.isFormDisabled ? { label: 'Info', url: `/auth/user/info/${this.id}` } : { label: 'Edição', url: `/auth/user/edit/${this.id}` },
+      { label: `${this.id}`}
+    )
   }
 
   async ngOnInit() {
@@ -55,10 +67,8 @@ export class ManageUserPageComponent implements OnInit {
   }
 
   private async findUserById(): Promise<void> {
-    const id = Number.parseInt(this._route.snapshot.paramMap.get('id') || '0')
-
     try {
-      const user$ = this._userService.findById(id)
+      const user$ = this._userService.findById(this.id)
       this.user = await firstValueFrom(user$)
       
       this.user.permissions.forEach((p) => {

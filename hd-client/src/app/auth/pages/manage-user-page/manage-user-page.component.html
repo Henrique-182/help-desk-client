@@ -1,55 +1,47 @@
 <div class="user-form__container">
-    <div class="user-form__toolbar">
-        <mat-toolbar color="primary">
-            <button mat-icon-button>
-                <mat-icon>menu</mat-icon>
-            </button>
-            <span>{{ action }} usuário</span>
-            <span class="example-spacer"></span>
-            <span>Olá, {{ username }}</span>
-        </mat-toolbar>
-    </div>
-    <div class="user-form__form">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Informações do usuário</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
+    <app-toolbar [username]="username" />
+    <app-sidebar />
+    <div class="nav__container">
+        <app-breadcrumb [items]="breadCrumbItems" />
+        <div class="content__container">
+            <p-card header="Informações do usuário">
                 <form [formGroup]="userForm" class="form">
-                    <div class="flex flex-direction-column">
-                        <label for="username">Nome de usuário</label>
-                        <input pInputText formControlName="username" />
+                    <div class="flex flex-row justify-content-space-between margin-bottom-1-em">
+                        <div class="flex flex-column width-48">
+                            <label class="margin-bottom-05-rem" for="username">Nome de usuário</label>
+                            <input pInputText formControlName="username" />
+                        </div>
+    
+                        <div class="flex flex-column width-48">
+                            <label class="margin-bottom-05-rem" for="fullname">Nome completo</label>
+                            <input pInputText formControlName="fullname" />
+                        </div>
                     </div>
 
-                    <div class="flex flex-direction-column">
-                        <label for="fullname">Nome completo</label>
-                        <input pInputText formControlName="fullname" />
-                    </div>
-
-                    <div class="flex flex-direction-row justify-content-between align-items-center">
-                        <div class="flex flex-direction-column">
-                            <label for="accountNonExpired">Conta não expirada</label>
+                    <div class="flex flex-row justify-content-space-between align-items-center margin-bottom-1-em">
+                        <div class="flex flex-column">
+                            <label class="margin-bottom-05-rem" for="accountNonExpired">Conta não expirada</label>
                             <p-inputSwitch formControlName="accountNonExpired" />
                         </div>
     
-                        <div class="flex flex-direction-column">
-                            <label for="accountNonLocked">Conta não bloqueada</label>
+                        <div class="flex flex-column">
+                            <label class="margin-bottom-05-rem" for="accountNonLocked">Conta não bloqueada</label>
                             <p-inputSwitch formControlName="accountNonLocked" />
                         </div>
     
-                        <div class="flex flex-direction-column">
-                            <label for="credentialsNonExpired">Credenciais não expiradas</label>
+                        <div class="flex flex-column">
+                            <label class="margin-bottom-05-rem" for="credentialsNonExpired">Credenciais não expiradas</label>
                             <p-inputSwitch formControlName="credentialsNonExpired" />
                         </div>
                         
-                        <div class="flex flex-direction-column">
-                            <label for="enabled">Ativo</label>
+                        <div class="flex flex-column">
+                            <label class="margin-bottom-05-rem" for="enabled">Ativo</label>
                             <p-inputSwitch formControlName="enabled" />
                         </div>
                     </div>
                         
-                    <div class="flex flex-direction-column">
-                        <label for="permissions">Permissões</label>
+                    <div class="flex flex-column">
+                        <label class="margin-bottom-05-rem" for="permissions">Permissões</label>
                         <p-multiSelect
                             [options]="permissionsList" 
                             formControlName="permissions" 
@@ -60,18 +52,19 @@
                         />
                     </div>
                 </form>
-            </mat-card-content>
-            <mat-card-actions>
-                <ng-container *ngIf="isFormDisabled; else buttomNotEditModeTemplate">
-                    <p-button icon="pi pi-user-edit" text="true" label="Editar" [severity]="undefined" (click)="onEdit()" size="small" />
-                    <p-button icon="pi pi-step-backward" text="true" label="Voltar" severity="help" (click)="onReturn()" size="small" />
-                    <p-button icon="pi pi-trash" text="true" label="Excluir" severity="danger" (click)="onDelete()" size="small" [hidden]="username === userForm.value.username" />
-                </ng-container>
-                <ng-template #buttomNotEditModeTemplate>
-                    <p-button icon="pi pi-save" text="true" label="Salvar" severity="success" (click)="onSave()" size="small" />
-                    <p-button icon="pi pi-undo" text="true" label="Cancelar" severity="warning" (click)="onCancel()" size="small" />
+                <ng-template pTemplate="footer">
+                    <ng-container *ngIf="isFormDisabled; else buttomNotEditModeTemplate">
+                        <p-button icon="pi pi-user-edit" text="true" label="Editar" [severity]="undefined" (click)="onEdit()" size="small" />
+                        <p-button icon="pi pi-step-backward" text="true" label="Voltar" severity="help" (click)="onReturn()" size="small" />
+                        <p-button icon="pi pi-trash" text="true" label="Excluir" severity="danger" (click)="onDelete()" size="small" [hidden]="username === userForm.value.username" />
+                    </ng-container>
+                    <ng-template #buttomNotEditModeTemplate>
+                        <p-button icon="pi pi-save" text="true" label="Salvar" severity="success" (click)="onSave()" size="small" />
+                        <p-button icon="pi pi-undo" text="true" label="Cancelar" severity="warning" (click)="onCancel()" size="small" />
+                    </ng-template>
                 </ng-template>
-            </mat-card-actions>
-        </mat-card>
+            </p-card>
+        </div>
+        
     </div>
 </div>

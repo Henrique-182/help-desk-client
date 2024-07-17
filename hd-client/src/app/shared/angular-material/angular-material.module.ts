@@ -24,7 +24,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatTableModule,
     MatToolbarModule,
     MatSelectModule,
-    MatGridListModule
+    MatGridListModule,
   ]
 })
 export class AngularMaterialModule { }

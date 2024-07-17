@@ -1,42 +1,7 @@
-@import "../../../../styles/variables";
-
-.logo {
-    position: fixed;
-    background-color: #a044f7;
-    width: 70px;
-    height: 56px;
-}
-
-p-toolbar {
-    color: #fff;
-}
-
-.knowledges__toolbar {
-    position: fixed;
-    box-shadow: 0 1px 10px #0000001f,0 4px 5px #00000024,0 2px 4px -1px #0003;
-    z-index: 999;
-}
-
-.knowledges__breadcrumb {
-    box-shadow: 0 1px 10px #0000001f,0 4px 5px #00000024,0 2px 4px -1px #0003;
-}
-
-.content {
-    padding-top: 56px;
-    margin-left: 70px;
-    min-height: 100vh;
-    height: 100%;
-    background-color: #fafafa;
-}
-
 .knowledges__table {
     margin: 2rem;
     padding: 2rem;
     background-color: #fff;
     border: 1px solid #e5e7eb;
     border-radius: 10px;
-}
-
-li {
-    list-style: none;
 }

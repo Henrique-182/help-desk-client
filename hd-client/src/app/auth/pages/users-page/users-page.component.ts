@@ -7,6 +7,7 @@ import { Pageable } from '../../../shared/model/pageable/pageable';
 import { UserDtoList } from '../../model/user-dto-list';
 import { firstValueFrom } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-users-page',
@@ -14,6 +15,10 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   styleUrl: './users-page.component.scss'
 })
 export class UsersPageComponent implements OnInit {
+
+  breadCrumbItems: MenuItem[] = [
+    { label: 'Lista de usuários', url: '/auth/users' }
+  ]
 
   tableValue: UserDto[] = [] as UserDto[]
 
@@ -70,14 +75,6 @@ export class UsersPageComponent implements OnInit {
     this.first = 0
 
     this.usersRequest()
-  }
-
-  getPermissionSeverity(permission: string): "success" | "secondary" | "info" | "warning" | "danger" | "contrast" | undefined {
-
-    return permission === 'ADMIN' ? 'danger'
-        : permission === 'MANAGER' ? 'warning'
-        : permission === 'COMMON_USER' ? 'info'
-        : 'contrast'
   }
 
   onMenuClick() {

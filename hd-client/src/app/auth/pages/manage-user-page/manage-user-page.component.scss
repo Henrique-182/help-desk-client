@@ -1,32 +1,5 @@
-.user-form__container {
-
-    .example-spacer {
-        flex: 1 1 auto;
-    }
-
-    .form {
-        display: flex;
-        flex-direction: column;
-        width: 50%;
-    }
-}
-
-.flex {
+.form {
     display: flex;
-}
-
-.flex-direction-column {
     flex-direction: column;
-}
-
-.flex-direction-row {
-    flex-direction: row;
-}
-
-.justify-content-between {
-    justify-content: space-between;
-} 
-
-.align-items-center {
-    align-items: center;
+    width: 100%;
 }

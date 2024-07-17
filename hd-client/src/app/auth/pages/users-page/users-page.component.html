@@ -1,17 +1,11 @@
-<div class="user-container">
-  <div class="user-container__toolbar">
-    <mat-toolbar color="primary">
-      <button mat-icon-button (click)="onMenuClick()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span>Lista de usuários</span>
-      <span class="example-spacer"></span>
-      <span>Olá, {{ username }}</span>
-    </mat-toolbar>
-  </div>
+<div class="users__container">
+  <app-toolbar [username]="username" />
+  <app-sidebar />
 
-  <div class="user-container__table">
-    <p-table [value]="tableValue" 
+  <div class="nav__container">
+    <app-breadcrumb [items]="breadCrumbItems" />
+    <div class="content__container">
+      <p-table [value]="tableValue" 
       [lazy]="true" 
       [rows]="rows" 
       [totalRecords]="totalElements"
@@ -19,14 +13,15 @@
       [showCurrentPageReport]="true" 
       currentPageReportTemplate="{first} - {last} de um total de {totalRecords} usuários"
       (onPage)="handlePageEvent($event)" 
-      [rowsPerPageOptions]="[5, 10, 25, 50]"
+      [rowsPerPageOptions]="[5, 10, 25]"
       [sortField]="'username'"
       (onSort)="handleSortEvent($event)"
+      styleClass="p-datatable-sm"
     >
 
       <!-- TABLE CAPTION -->
       <ng-template pTemplate="caption">
-        <div class="flex align-items-center justify-content-between">
+        <div class="flex align-items-center justify-content-space-between">
           <div>
             <p-button [outlined]="true" icon="pi pi-filter-slash" label="Limpar filtros" (click)="onClearFilters()" class="margin-right-1-em" />
             <p-button [outlined]="true" icon="pi pi-refresh" label="Recarregar" (click)="onRefreshTable()" />
@@ -45,7 +40,7 @@
             Id <p-sortIcon field="id" />
           </th>
           <th pSortableColumn="username">
-            <div class="flex justify-content-between align-items-center">
+            <div class="flex justify-content-space-between align-items-center">
               <div>
                 Nome de usuário 
                 <p-sortIcon field="username" />
@@ -67,7 +62,7 @@
             </div>
           </th>
           <th pSortableColumn="fullname">
-            <div class="flex justify-content-between align-items-center">
+            <div class="flex justify-content-space-between align-items-center">
               <div>
                 Nome Completo 
                 <p-sortIcon field="fullname" />
@@ -90,7 +85,7 @@
             Ativo
           </th>
           <th>
-            <div class="flex justify-content-between align-items-center">
+            <div class="flex justify-content-space-between align-items-center">
                 <div>
                   Permissões
                 </div>
@@ -132,7 +127,7 @@
             <p-tag 
               *ngFor="let d of user.permissions" 
               [value]="d.description | userPermission" 
-              [severity]="getPermissionSeverity(d.description)" 
+              [severity]="d.description" 
               [rounded]="true"
             />
           </td>
@@ -163,25 +158,26 @@
         </tr>
       </ng-template>
     </p-table>
+    </div>
   </div>
   <div class="card flex justify-content-center">
       <p-dialog header="Adicionar usuário" [modal]="true" [(visible)]="isAddUserDialogVisible" [style]="{ width: '30em' }">
-          <form [formGroup]="userForm" class="flex flex-direction-column">
-            <div class="flex flex-direction-row align-items-center justify-content-between margin-bottom-05-em">
+          <form [formGroup]="userForm" class="flex flex-column">
+            <div class="flex flex-row align-items-center justify-content-space-between margin-bottom-05-rem">
               <label for="username">Nome de usuário</label>
               <input pInputText formControlName="username" />
             </div>
-            <div class="flex flex-direction-row align-items-center justify-content-between margin-bottom-05-em">
+            <div class="flex flex-row align-items-center justify-content-space-between margin-bottom-05-rem">
               <label for="fullname">Nome completo</label>
               <input pInputText formControlName="fullname" />
             </div>
-            <div class="flex flex-direction-row align-items-center justify-content-between margin-bottom-2-em">
+            <div class="flex flex-row align-items-center justify-content-space-between margin-bottom-1-em">
               <label for="password">Senha</label>
               <input pInputText formControlName="password" />
             </div>
           </form>
           
-          <div class="flex flex-direction-row justify-content-end gap-05-em">
+          <div class="flex flex-row justify-content-end gap-05-em">
             <p-button icon="pi pi-undo" label="Cancelar" severity="warning" (click)="isAddUserDialogVisible = false" size="small" />
             <p-button icon="pi pi-save" label="Salvar" severity="success" (click)="onSave()" size="small" />
           </div>

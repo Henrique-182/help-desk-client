@@ -16,7 +16,6 @@ export class KnowledgesPageComponent implements OnInit {
   username: string
 
   breadCrumbItems: MenuItem[] = [
-    { icon: 'pi pi-home', routerLink: '/home/page' },
     { label: 'Lista de conhecimentos', url: '/knowledge/list' }
   ]
 

@@ -1,0 +1,18 @@
+<div class="sidebar__container">
+    <p-sidebar [visible]="true" modal="false">
+        <div class="icons flex flex-column align-items-center">
+            <p-button text="true" pTooltip="Usuários" (click)="onUsersButtonClick()">
+                <i class="pi pi-users"></i>
+            </p-button>
+            <p-button text="true" pTooltip="Conhecimentos" (click)="onKnowledgesButtonClick()">
+                <i class="pi pi-book"></i>
+            </p-button>
+            <p-button text="true" pTooltip="Chat" (click)="onChatButtonClick()">
+                <i class="pi pi-comments"></i>
+            </p-button>
+            <p-button text="true" pTooltip="Relatórios" (click)="onReportsButtonClick()">
+                <i class="pi pi-file-pdf"></i>
+            </p-button>
+        </div>
+    </p-sidebar>
+</div>

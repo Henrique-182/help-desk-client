@@ -1,0 +1,29 @@
+@import "../../../../../styles/variables";
+
+::ng-deep .p-toolbar {
+    background: $primary-color;
+    
+    width: calc(100vw - 70px);
+    max-height: 56px;
+    padding-right: 2rem;
+
+    flex-wrap: nowrap;
+    position: fixed;
+    z-index: 999;
+
+    border-radius: 0;
+    border: 0;
+    margin-left: 70px;
+    box-shadow: 0 1px 10px #0000001f,0 4px 5px #00000024,0 2px 4px -1px #0003;
+}
+
+.logo {
+    position: fixed;
+    background-color: #a044f7;
+    width: 70px;
+    height: 56px;
+}
+
+::ng-deep p-toolbar, ::ng-deep .pi-desktop {
+    color: #fff;
+}

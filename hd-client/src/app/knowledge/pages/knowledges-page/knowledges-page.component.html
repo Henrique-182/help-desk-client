@@ -1,27 +1,9 @@
-<div class="knowledges-container">
-    <div class="knowledges__toolbar width-100">
-        <div class="logo flex align-items-center justify-content-center">
-            <p-button text="true" [style]="{'color': '#fff'}" icon="pi pi-desktop" size="large"/>
-        </div>
-        <p-toolbar>
-            <ng-template pTemplate="start">
-            </ng-template>
-            <ng-template pTemplate="end">
-                <span>Olá, {{ username }}</span>
-            </ng-template>
-        </p-toolbar>
-    </div>
-    <div class="knowledges_sidebar">
-        <p-sidebar [visible]="true" modal="false" class="flex flex-column align-items-center justify-content-center">
-            <ul>
-            </ul>
-        </p-sidebar>
-    </div>
-    <div class="content">
-        <div class="knowledges__breadcrumb">
-            <p-breadcrumb [model]="breadCrumbItems" />
-        </div>
-        <div class="knowledges__table">
+<div class="knowledges__container">
+    <app-toolbar [username]="username" />
+    <app-sidebar />
+    <div class="nav__container">
+        <app-breadcrumb [items]="breadCrumbItems" />
+        <div class="content__container">
             <p-table 
                 [value]="tableValue" 
                 [lazy]="true" 
