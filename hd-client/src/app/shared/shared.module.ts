@@ -7,13 +7,15 @@ import { PrimeNgModule } from './prime-ng/prime-ng.module';
 import { ToolbarComponent } from './components/menu/toolbar/toolbar.component';
 import { SidebarComponent } from './components/menu/sidebar/sidebar.component';
 import { BreadcrumbComponent } from './components/menu/breadcrumb/breadcrumb.component';
+import { SidebarItemComponent } from './components/menu/sidebar-item/sidebar-item.component';
 
 
 @NgModule({
   declarations: [
     ToolbarComponent,
     SidebarComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    SidebarItemComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import { BreadcrumbComponent } from './components/menu/breadcrumb/breadcrumb.com
     FormsModule,
     ToolbarComponent,
     SidebarComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    SidebarItemComponent
   ]
 })
 export class SharedModule { }

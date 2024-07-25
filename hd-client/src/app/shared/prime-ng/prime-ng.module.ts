@@ -17,6 +17,8 @@ import { CardModule } from 'primeng/card';
 import { FieldsetModule } from 'primeng/fieldset';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TooltipModule } from 'primeng/tooltip';
+import { EditorModule } from 'primeng/editor';
+import { TieredMenuModule } from 'primeng/tieredmenu';
 
 @NgModule({
   exports: [
@@ -37,7 +39,9 @@ import { TooltipModule } from 'primeng/tooltip';
     CardModule,
     FieldsetModule,
     BreadcrumbModule,
-    TooltipModule
+    TooltipModule,
+    EditorModule,
+    TieredMenuModule
   ]
 })
 export class PrimeNgModule { }

@@ -1,18 +1,30 @@
 <div class="sidebar__container">
     <p-sidebar [visible]="true" modal="false">
         <div class="icons flex flex-column align-items-center">
-            <p-button text="true" pTooltip="Usuários" (click)="onUsersButtonClick()">
-                <i class="pi pi-users"></i>
-            </p-button>
-            <p-button text="true" pTooltip="Conhecimentos" (click)="onKnowledgesButtonClick()">
-                <i class="pi pi-book"></i>
-            </p-button>
-            <p-button text="true" pTooltip="Chat" (click)="onChatButtonClick()">
-                <i class="pi pi-comments"></i>
-            </p-button>
-            <p-button text="true" pTooltip="Relatórios" (click)="onReportsButtonClick()">
-                <i class="pi pi-file-pdf"></i>
-            </p-button>
+            <app-sidebar-item 
+                tooltipMessage="Usuários"
+                [icon]="usersIcon"
+                [tiredMenuItems]="usersTiredMenu"
+                [isTiredMenuDisplayNone]="isUsersTiredMenuDisplayNone"
+            />
+            <app-sidebar-item 
+                tooltipMessage="Conhecimentos"
+                [icon]="knowledgesIcon"
+                [tiredMenuItems]="knowledgesTiredMenu"
+                [isTiredMenuDisplayNone]="isKnowledgesTiredMenuDisplayNone"
+            />
+            <app-sidebar-item 
+                tooltipMessage="Chats"
+                [icon]="chatsIcon"
+                [tiredMenuItems]="chatsTiredMenu"
+                [isTiredMenuDisplayNone]="isChatsTiredMenuDisplayNone"
+            />
+            <app-sidebar-item 
+                tooltipMessage="Relatórios"
+                [icon]="reportsIcon"
+                [tiredMenuItems]="reportsTiredMenu"
+                [isTiredMenuDisplayNone]="isReportsTiredMenuDisplayNone"
+            />
         </div>
     </p-sidebar>
 </div>

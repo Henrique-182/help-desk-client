@@ -5,6 +5,7 @@ import { KnowledgeService } from '../../services/knowledge.service';
 import { Pageable } from '../../../shared/model/pageable/pageable';
 import { KnowledgeDtoList } from '../../model/knowledge-dto-list';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-knowledges-page',
@@ -43,7 +44,8 @@ export class KnowledgesPageComponent implements OnInit {
 
   constructor(
     private _snackBar: MatSnackBar,
-    private _knowledgeService: KnowledgeService
+    private _knowledgeService: KnowledgeService,
+    private _router: Router
   ) {
     this.username = localStorage.getItem('username') || 'Usuário'
   }
@@ -128,11 +130,11 @@ export class KnowledgesPageComponent implements OnInit {
   }
 
   onGetKnowledge(knowledge: KnowledgeDto) {
-    
+    this._router.navigate([`knowledge/info/${knowledge.key}`])
   }
 
   onEditKnowledge(knowledge: KnowledgeDto) {
-    
+    this._router.navigate([`knowledge/edit/${knowledge.key}`])
   }
 
   onDeleteKnowledge(knowledge: KnowledgeDto) {

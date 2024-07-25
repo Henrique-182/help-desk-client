@@ -1,0 +1,61 @@
+<div class="manage-knowledge-page__container">
+    <app-toolbar [username]="username" />
+    <app-sidebar />
+    <div class="nav__container">
+        <app-breadcrumb [items]="breadCrumbItems" />
+        <div class="content__container">
+            <p-card header="Informações do conhecimento">
+                <form [formGroup]="knowledgeForm" class="form">
+                    <div class="flex flex-column margin-bottom-1-em">
+                        <label class="margin-bottom-05-rem" for="title">Título</label>
+                        <input pInputText formControlName="title" />
+                    </div>
+                    
+                    <div class="flex flex-column margin-bottom-1-em">
+                        <label class="margin-bottom-05-rem" for="content">Conteúdo</label>
+                        <p-editor 
+                            formControlName="content" 
+                            [readonly]="isFormDisabled" 
+                            [style]="{ height: '200px' }" 
+                        />
+                    </div>
+
+                    <div class="flex flex-column margin-bottom-1-em">
+                        <label class="margin-bottom-05-rem" for="tags">Tags</label>
+                        <p-multiSelect
+                            [options]="tags" 
+                            formControlName="tags" 
+                            optionLabel="description" 
+                            placeholder="Selecione tags"
+                            [showClear]="false"
+                            [showHeader]="false"
+                        />
+                    </div>
+
+                    <div class="flex flex-column margin-bottom-1-em">
+                        <label class="margin-bottom-05-rem" for="software">Software</label>
+                        <p-dropdown
+                            [options]="softwares" 
+                            formControlName="software" 
+                            optionLabel="description" 
+                            placeholder="Selecione software"
+                            [showClear]="false"
+                        />
+                    </div>
+                    
+                </form>
+                <ng-template pTemplate="footer">
+                    <ng-container *ngIf="isFormDisabled; else buttomNotEditModeTemplate">
+                        <p-button icon="pi pi-user-edit" text="true" label="Editar" [severity]="undefined" (click)="onEdit()" size="small" />
+                        <p-button icon="pi pi-step-backward" text="true" label="Voltar" severity="help" (click)="onReturn()" size="small" />
+                        <p-button icon="pi pi-trash" text="true" label="Excluir" severity="danger" (click)="onDelete()" size="small" />
+                    </ng-container>
+                    <ng-template #buttomNotEditModeTemplate>
+                        <p-button icon="pi pi-save" text="true" label="Salvar" severity="success" (click)="onSave()" size="small" />
+                        <p-button icon="pi pi-undo" text="true" label="Cancelar" severity="warning" (click)="onCancel()" size="small" />
+                    </ng-template>
+                </ng-template>
+            </p-card>
+        </div>
+    </div>
+</div>

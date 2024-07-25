@@ -1,0 +1,8 @@
+<div class="sidebar-item__container">
+    <div [pTooltip]="tooltipMessage" tooltipEvent="hover" [tooltipDisabled]="!isTiredMenuDisplayNone">
+        <p-button text="true" (click)="isTiredMenuDisplayNone = !isTiredMenuDisplayNone">
+            <i [class]="icon"></i>
+        </p-button>
+        <p-tieredMenu [hidden]="isTiredMenuDisplayNone" [model]="tiredMenuItems" />
+    </div>
+</div>

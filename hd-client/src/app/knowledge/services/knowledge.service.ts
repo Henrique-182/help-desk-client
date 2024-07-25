@@ -2,7 +2,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Pageable } from '../../shared/model/pageable/pageable';
 import { KnowledgeDtoList } from '../model/knowledge-dto-list';
-import { first } from 'rxjs';
+import { first, Observable } from 'rxjs';
+import { KnowledgeDto } from '../model/knowledge-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,72 @@ export class KnowledgeService {
                 first()
               )
   }
+
+  findById(id: number): Observable<KnowledgeDto> {
+
+    let headers: HttpHeaders = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.getAccessToken()
+    })
+
+    return this._httpClient
+      .get<KnowledgeDto>(
+        this.KNOWLEDGE_URL + `/${id}`,
+        { headers }
+      )
+      .pipe(
+        first()
+      )
+  }
+
+  save(body: KnowledgeDto) {
+
+    let headers: HttpHeaders = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.getAccessToken()
+    })
+
+    return this._httpClient
+              .post<KnowledgeDto>(
+                this.KNOWLEDGE_URL,
+                body,
+                { headers }
+              )
+              .pipe(
+                first()
+              )
+  }
+
+  updateById(id: number, body: KnowledgeDto) {
+
+    let headers: HttpHeaders = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.getAccessToken()
+    })
+
+    return this._httpClient
+      .put<KnowledgeDto>(
+        this.KNOWLEDGE_URL + `/${id}`,
+        body,
+        { headers }
+      )
+      .pipe(
+        first()
+      )
+  }
+
+  deleteById(id: number) {
+
+    let headers: HttpHeaders = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.getAccessToken()
+    })
+
+    return this._httpClient
+      .delete(
+        this.KNOWLEDGE_URL + `/${id}`,
+        { headers }
+      ).pipe(
+        first()
+      )
+  }
+
 
   private getAccessToken(): string {
 
