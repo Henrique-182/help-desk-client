@@ -7,7 +7,6 @@ import { KnowledgeService } from '../../services/knowledge.service';
 import { firstValueFrom } from 'rxjs';
 import { KnowledgeDto } from '../../model/knowledge-dto';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TagsList } from '../../data/tag';
 
 @Component({
   selector: 'app-manage-knowledge-page',
@@ -106,7 +105,7 @@ export class ManageKnowledgePageComponent implements OnInit {
       
       this.showSnackBar('Conhecimento excluído com sucesso!', 'Ok!', 3000)
 
-      this._router.navigate(['auth/users'])
+      this._router.navigate(['knowledge/list'])
     } catch (err) {
       this.showSnackBar('Não foi possível excluir o conhecimento. Tente novamente mais tarde!', 'Ok!', 3000)
       console.log(err);

@@ -6,6 +6,9 @@ import { Pageable } from '../../../shared/model/pageable/pageable';
 import { KnowledgeDtoList } from '../../model/knowledge-dto-list';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { firstValueFrom } from 'rxjs';
+import { TagDto } from '../../model/tag-dto';
 
 @Component({
   selector: 'app-knowledges-page',
@@ -42,10 +45,34 @@ export class KnowledgesPageComponent implements OnInit {
     { label: 'Tag F', value: 'Tag F' },
   ]
 
+  isAddKnowledgeDialogVisible: boolean = false
+
+  knowledgeForm: FormGroup = this._formBuilder.group({
+    title: [],
+    software: [],
+    content: [],
+    tags: []
+  })
+
+  tagsForm = [
+    { id: 1, description: 'Tag A' },
+    { id: 2, description: 'Tag B' },
+    { id: 3, description: 'Tag C' },
+    { id: 4, description: 'Tag D' },
+    { id: 5, description: 'Tag E' },
+    { id: 6, description: 'Tag F' },
+  ]
+  softwares = [
+    { id: 1, description: 'Software A' },
+    { id: 2, description: 'Software B' },
+    { id: 3, description: 'Software C' },
+  ]
+
   constructor(
     private _snackBar: MatSnackBar,
     private _knowledgeService: KnowledgeService,
-    private _router: Router
+    private _router: Router,
+    private _formBuilder: FormBuilder
   ) {
     this.username = localStorage.getItem('username') || 'Usuário'
   }
@@ -122,7 +149,7 @@ export class KnowledgesPageComponent implements OnInit {
   }
 
   onAddKnowledge() {
-
+    this.isAddKnowledgeDialogVisible = true
   }
 
   onKnowledgeReport() {
@@ -137,8 +164,34 @@ export class KnowledgesPageComponent implements OnInit {
     this._router.navigate([`knowledge/edit/${knowledge.key}`])
   }
 
-  onDeleteKnowledge(knowledge: KnowledgeDto) {
-    
+  async onDeleteKnowledge(knowledge: KnowledgeDto) {
+    try {
+      const knowledge$ = this._knowledgeService.deleteById(knowledge.key)
+
+      await firstValueFrom(knowledge$)
+      
+      this.showSnackBar('Conhecimento excluído com sucesso!', 'Ok!', 3000)
+
+      this.knowledgesRequest()
+    } catch (err) {
+      this.showSnackBar('Não foi possível excluir o conhecimento. Tente novamente mais tarde!', 'Ok!', 3000)
+      console.log(err);
+    }
+  }
+
+  async onSave() {
+    try {
+      const knowledge$ = this._knowledgeService.save(this.knowledgeForm.value)
+
+      const knowledge = await firstValueFrom(knowledge$)
+
+      this.showSnackBar('Conhecimento salvo com sucesso!', 'Ok!', 3000)
+
+      this._router.navigate([`knowledge/info/${knowledge.key}`])
+    } catch (err) {
+      this.showSnackBar('Não foi possível salvar o conhecimento. Tente novamente mais tarde!', 'Ok!', 3000)
+      console.log(err);
+    }
   }
 
   private showSnackBar(message: string, action: string, snackBarDuration: number) {
