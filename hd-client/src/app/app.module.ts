@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeModule } from './home/home.module';
 import { KnowledgeModule } from './knowledge/knowledge.module';
+import { ChatModule } from './chat/chat.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { KnowledgeModule } from './knowledge/knowledge.module';
     HttpClientModule,
     BrowserAnimationsModule,
     HomeModule,
-    KnowledgeModule
+    KnowledgeModule,
+    ChatModule
   ],
   providers: [
     provideAnimationsAsync()
