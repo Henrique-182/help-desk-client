@@ -8,6 +8,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserDto } from '../../../auth/model/user-dto';
 import { UserService } from '../../../auth/services/user.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { CustomersList, EmployeesList } from '../../data/sector';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-sectors-page',
@@ -37,13 +40,24 @@ export class SectorsPageComponent implements OnInit {
 
   customersOptions: UserDto[] = {} as UserDto[]
 
+  isAddSectorDialogVisible: boolean = false
+  sectorForm: FormGroup = this._formBuilder.group({
+    description: [null],
+    employees: [null],
+    customers: [null]
+  })
+
   constructor (
     private _snackBar: MatSnackBar,
     private _sectorService: SectorService,
-    private _router: Router
+    private _router: Router,
+    private _formBuilder: FormBuilder,
   ) {
     this.username = localStorage.getItem('username') || 'Usuário'
   }
+
+  employeesList = EmployeesList
+  customersList = CustomersList
 
   async ngOnInit() {
     this.sectorsRequest()
@@ -114,7 +128,7 @@ export class SectorsPageComponent implements OnInit {
   }
 
   onAddSector() {
-
+    this.isAddSectorDialogVisible = true
   }
 
   onSectorReport() {
@@ -129,8 +143,32 @@ export class SectorsPageComponent implements OnInit {
     this._router.navigate([`chat/sector/edit/${sector.key}`])
   }
 
-  onDeleteSector(sector: SectorDto) {
+  async onDeleteSector(sector: SectorDto) {
+    try {
+      const user$ = this._sectorService.deleteById(sector.key)
 
+      await firstValueFrom(user$)
+      
+      this.showSnackBar('Setor excluído com sucesso!', 'Ok!', 3000)
+    } catch (err) {
+      this.showSnackBar('Não foi possível excluir o setor. Tente novamente mais tarde!', 'Ok!', 3000)
+      console.log(err);
+    }
+  }
+
+  async onSave() {
+    try {
+      const sector$ = this._sectorService.save(this.sectorForm.value)
+
+      const sector = await firstValueFrom(sector$)
+
+      this.showSnackBar('Setor salvo com sucesso!', 'Ok!', 3000)
+
+      this._router.navigate([`chat/sector/info/${sector.key}`])
+    } catch (err) {
+      this.showSnackBar('Não foi possível salvar o setor. Tente novamente mais tarde!', 'Ok!', 3000)
+      console.log(err);
+    }
   }
 
   private showSnackBar(message: string, action: string, snackBarDuration: number) {

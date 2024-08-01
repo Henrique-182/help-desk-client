@@ -155,4 +155,41 @@
             </p-table>
         </div>
     </div>
+    <div class="card flex justify-content-center">
+        <p-dialog header="Adicionar usuário" [modal]="true" [(visible)]="isAddSectorDialogVisible" [style]="{ width: '35em' }">
+            <form [formGroup]="sectorForm" class="flex flex-column">
+                <div class="flex flex-column margin-bottom-1-em">
+                    <label class="margin-bottom-05-rem" for="description">Descrição</label>
+                    <input pInputText formControlName="description" />
+                </div>
+                <div class="flex flex-column margin-bottom-1-em">
+                    <label class="margin-bottom-05-rem" for="employees">Funcionários</label>
+                    <p-multiSelect
+                        [options]="employeesList" 
+                        formControlName="employees" 
+                        optionLabel="fullname" 
+                        placeholder="Selecione funcionários"
+                        [showClear]="false"
+                        [showHeader]="false"
+                    />
+                </div>
+                <div class="flex flex-column margin-bottom-1-em">
+                    <label class="margin-bottom-05-rem" for="customers">Clientes</label>
+                    <p-multiSelect
+                        [options]="customersList" 
+                        formControlName="customers" 
+                        optionLabel="fullname" 
+                        placeholder="Selecione clientes"
+                        [showClear]="false"
+                        [showHeader]="false"
+                    />
+                </div>
+            </form>
+            
+            <div class="flex flex-row justify-content-end gap-05-em">
+              <p-button icon="pi pi-undo" label="Cancelar" severity="warning" (click)="isAddSectorDialogVisible = false" size="small" />
+              <p-button icon="pi pi-save" label="Salvar" severity="success" (click)="onSave()" size="small" />
+            </div>
+        </p-dialog>
+    </div>
 </div>
