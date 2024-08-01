@@ -1,0 +1,158 @@
+<div class="home-page__container">
+    <app-toolbar [username]="username" />
+    <app-sidebar />
+    <div class="nav__container">
+        <app-breadcrumb [items]="breadCrumbItems" />
+        <div class="content__container">
+            <p-table 
+                [value]="tableValue" 
+                [lazy]="true" 
+                [rows]="rows" 
+                [totalRecords]="totalElements"
+                paginator="true" 
+                [showCurrentPageReport]="true" 
+                currentPageReportTemplate="{first} - {last} de um total de {totalRecords} setores"
+                (onPage)="handlePageEvent($event)" 
+                [rowsPerPageOptions]="[5, 10, 25]"
+                [sortField]="'title'"
+                (onSort)="handleSortEvent($event)"
+                styleClass="p-datatable-sm"
+            >
+                <!-- TABLE CAPTION -->
+                <ng-template pTemplate="caption">
+                    <div class="flex align-items-center justify-content-space-between">
+                    <div>
+                        <p-button [outlined]="true" icon="pi pi-filter-slash" label="Limpar filtros" (click)="onClearFilters()" class="margin-right-1-em" />
+                        <p-button [outlined]="true" icon="pi pi-refresh" label="Recarregar" (click)="onRefreshTable()" />
+                    </div>
+                    <div>
+                        <p-button [outlined]="true" severity="success" icon="pi pi-plus" label="Incluir" (click)="onAddSector()" class="margin-right-1-em" />
+                        <p-button [outlined]="true" severity="help" icon="pi pi-file-pdf" label="Report" (click)="onSectorReport()" />
+                    </div>
+                </div>
+                </ng-template>
+
+                <!-- TABLE HEADER -->
+                <ng-template pTemplate="header">
+                    <tr>
+                    <th pSortableColumn="id">
+                        Id <p-sortIcon field="id" />
+                    </th>
+                    <th pSortableColumn="description">
+                        <div class="flex justify-content-space-between align-items-center">
+                        <div>
+                            Descrição 
+                            <p-sortIcon field="description" />
+                        </div>
+                        <div>
+                            <p-columnFilter
+                            ariaLabel="Filtra setor"
+                            display="menu"
+                            [showMatchModes]="false"
+                            [showOperator]="false"
+                            [showAddButton]="false"
+                            [showClearButton]="false"
+                            >
+                            <ng-template pTemplate="filter">
+                                <input type="text" placeholder="Busca por descrição" pInputText [(ngModel)]="queryDescription">
+                            </ng-template>
+                            </p-columnFilter>
+                        </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="flex justify-content-space-between align-items-center">
+                        <div>
+                            Funcionários 
+                        </div>
+                        <div>
+                            <p-columnFilter
+                            ariaLabel="Filtra setor"
+                            display="menu"
+                            [showMatchModes]="false"
+                            [showOperator]="false"
+                            [showAddButton]="false"
+                            [showClearButton]="false"
+                            >
+                            <ng-template pTemplate="filter">
+                                <input type="text" placeholder="Busca por nome do funcionário" pInputText [(ngModel)]="queryEmployeeName">
+                            </ng-template>
+                            </p-columnFilter>
+                        </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="flex justify-content-space-between align-items-center">
+                        <div>
+                            Clientes 
+                        </div>
+                        <div>
+                            <p-columnFilter
+                            ariaLabel="Filtra setor"
+                            display="menu"
+                            [showMatchModes]="false"
+                            [showOperator]="false"
+                            [showAddButton]="false"
+                            [showClearButton]="false"
+                            >
+                            <ng-template pTemplate="filter">
+                                <input type="text" placeholder="Busca por nome do cliente" pInputText [(ngModel)]="queryCustomerName">
+                            </ng-template>
+                            </p-columnFilter>
+                        </div>
+                        </div>
+                    </th>
+                    <th>
+                        Ações
+                    </th>
+                    </tr>
+                </ng-template>
+
+                <!-- TABLE BODY -->
+                <ng-template pTemplate="body" let-sector>
+                    <tr>
+                    <td>{{ sector.key }}</td>
+                    <td>{{ sector.description }}</td>
+                    <td>
+                        <p-tag 
+                        *ngFor="let d of sector.employees" 
+                        [value]="d.username" 
+                        [rounded]="true"
+                        />
+                    </td>
+                    <td>
+                        <p-tag 
+                        *ngFor="let s of sector.customers" 
+                        [value]="s.username"
+                        [rounded]="true"
+                        />
+                    </td>
+                    <td>
+                        <p-button 
+                        pRipple
+                        icon="pi pi-info-circle" 
+                        [rounded]="true" 
+                        [outlined]="true" 
+                        severity="info" 
+                        (click)="onInfoSector(sector)" />
+                        <p-button 
+                        pRipple
+                        icon="pi pi-pencil" 
+                        [rounded]="true" 
+                        [outlined]="true" 
+                        severity="success" 
+                        (click)="onEditSector(sector)" />
+                        <p-button 
+                        pRipple 
+                        icon="pi pi-trash" 
+                        severity="danger" 
+                        [rounded]="true" 
+                        [outlined]="true"
+                        (click)="onDeleteSector(sector)" />
+                    </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

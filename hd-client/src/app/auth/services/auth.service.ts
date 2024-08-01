@@ -23,8 +23,7 @@ export class AuthService {
                 credentials
               )
               .pipe(
-                first(),
-                tap(token => console.log(token))
+                first()
               )
 
   }

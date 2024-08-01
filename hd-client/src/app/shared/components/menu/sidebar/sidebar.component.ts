@@ -44,6 +44,12 @@ export class SidebarComponent {
     }
   ]
 
+  favoritesIcon = 'pi pi-star'
+  isFavoritesTiredMenuDisplayNone: boolean = true
+  favoritesTiredMenu: MenuItem[] = [
+    { label: 'Início', icon: 'pi pi-home', url: '/home/page' },
+  ]
+
   constructor(
     private _router: Router
   ) {

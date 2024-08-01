@@ -31,7 +31,7 @@ export class HomePageComponent {
   }
 
   onGoToChatPage() {
-    this.showSnackBar('Chat não implementado!!!', 'Ok!', 3000)
+    this._router.navigate(['/chat/home'])
   }
 
   onGoToReportsPage() {
