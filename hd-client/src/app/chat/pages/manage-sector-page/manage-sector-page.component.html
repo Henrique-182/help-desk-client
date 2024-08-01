@@ -1,1 +1,54 @@
-<p>manage-sector-page works!</p>
+<div class="home-page__container">
+    <app-toolbar [username]="username" />
+    <app-sidebar />
+    <div class="nav__container">
+        <app-breadcrumb [items]="breadCrumbItems" />
+        <div class="content__container">
+            <p-card header="Informações do setor">
+                <form [formGroup]="sectorForm" class="form">
+                    <div class="flex flex-row justify-content-space-between margin-bottom-1-em">
+                        <div class="flex flex-column">
+                            <label class="margin-bottom-05-rem" for="description">Descrição</label>
+                            <input pInputText formControlName="description" />
+                        </div>
+                    </div>
+                        
+                    <div class="flex flex-column justify-content-space-between margin-bottom-1-em">
+                        <label class="margin-bottom-05-rem" for="employees">Funcionários</label>
+                        <p-multiSelect
+                            [options]="employeesList" 
+                            formControlName="employees" 
+                            optionLabel="fullname" 
+                            placeholder="Selecione funcionários"
+                            [showClear]="false"
+                            [showHeader]="false"
+                        />
+                    </div>
+
+                    <div class="flex flex-column">
+                        <label class="margin-bottom-05-rem" for="customers">Clientes</label>
+                        <p-multiSelect
+                            [options]="customersList" 
+                            formControlName="customers" 
+                            optionLabel="fullname" 
+                            placeholder="Selecione clientes"
+                            [showClear]="false"
+                            [showHeader]="false"
+                        />
+                    </div>
+                </form>
+                <ng-template pTemplate="footer">
+                    <ng-container *ngIf="isFormDisabled; else buttomNotEditModeTemplate">
+                        <p-button icon="pi pi-user-edit" text="true" label="Editar" [severity]="undefined" (click)="onEdit()" size="small" />
+                        <p-button icon="pi pi-step-backward" text="true" label="Voltar" severity="help" (click)="onReturn()" size="small" />
+                        <p-button icon="pi pi-trash" text="true" label="Excluir" severity="danger" (click)="onDelete()" size="small" />
+                    </ng-container>
+                    <ng-template #buttomNotEditModeTemplate>
+                        <p-button icon="pi pi-save" text="true" label="Salvar" severity="success" (click)="onSave()" size="small" />
+                        <p-button icon="pi pi-undo" text="true" label="Cancelar" severity="warning" (click)="onCancel()" size="small" />
+                    </ng-template>
+                </ng-template>
+            </p-card>
+        </div>
+    </div>
+</div>
