@@ -1,0 +1,17 @@
+<div class="knowledges__container">
+    <app-toolbar [username]="username" />
+    <app-sidebar />
+    <div class="nav__container">
+        <app-breadcrumb [items]="breadCrumbItems" />
+        <div class="flex flex-row justify-content-space-evenly margin-top-5-em">
+            <p-card [header]="sector.description" [style]="{ width: '300px' }" *ngFor="let sector of sectors">
+                <ng-template pTemplate="header">
+                    <img alt="Card" src="https://images.pexels.com/photos/1111368/pexels-photo-1111368.jpeg?auto=compress&cs=tinysrgb&w=600" />
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <p-button label="Acessar" severity="info" (click)="onGoToChat(sector.key)" />
+                </ng-template>
+            </p-card>
+        </div>
+    </div>
+</div>

@@ -6,13 +6,17 @@ import { ChatHomePageComponent } from './pages/chat-home-page/chat-home-page.com
 import { SectorsPageComponent } from './pages/sectors-page/sectors-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { ManageSectorPageComponent } from './pages/manage-sector-page/manage-sector-page.component';
+import { SelectSectorPageComponent } from './pages/select-sector-page/select-sector-page.component';
+import { ChatTalkPageComponent } from './pages/chat-talk-page/chat-talk-page.component';
 
 
 @NgModule({
   declarations: [
     ChatHomePageComponent,
     SectorsPageComponent,
-    ManageSectorPageComponent
+    ManageSectorPageComponent,
+    SelectSectorPageComponent,
+    ChatTalkPageComponent
   ],
   imports: [
     CommonModule,
