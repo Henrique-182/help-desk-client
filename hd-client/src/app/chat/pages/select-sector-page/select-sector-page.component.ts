@@ -19,7 +19,7 @@ export class SelectSectorPageComponent implements OnInit {
 
   breadCrumbItems: MenuItem[] = [
     { label: 'Chat', url: '/chat/home' },
-    { label: 'Escolha de Setor', url: '/chat/select/sector' }
+    { label: 'Escolha de Setor', url: '/chat/sector/select' }
   ]
 
   constructor (

@@ -1,0 +1,48 @@
+<div class="room-order-list__container">
+    <ng-container *ngIf="rooms.length !== 0; else roomsLengthIsZero">
+        <p-orderList 
+            [value]="rooms" 
+            [listStyle]="{ 'height': '30.5em' }"
+        >
+        <ng-template let-room pTemplate="item">
+            <div class="flex flex-row align-items-center justify-content-space-between" (click)="onItemClick(room)">
+                <div class="flex align-items-center gap-05-em width-100">
+                    <p-avatar 
+                        [label]="room.customer.username[0]" 
+                        size="normal" 
+                        shape="circle" 
+                    />
+                    <div class="flex flex-column width-100">
+                        <div class="grid grid-auto-flow-column">
+                            <div>
+                                {{ room.customer.username }}
+                            </div>
+                            <div class="flex justify-self-end">
+                                {{ room.code }}
+                            </div>
+                    </div>
+                        <div class="grid grid-auto-flow-column">
+                            <div>
+                                {{ room.messages.at(-1) | messageRoomOrderList }}
+                            </div>
+                            <div class="flex justify-self-end">
+                                {{ room.messages.at(-1)?.createDatetime | timeRoomOrderList }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        </p-orderList>
+    </ng-container>
+    <ng-template #roomsLengthIsZero>
+        <p-orderList 
+            [value]="noRoomsMessage" 
+            [listStyle]="{ 'height': '30.5em' }"
+        >   
+            <ng-template let-message pTemplate="item">
+                <h2>Sem salas {{ message }}</h2>
+            </ng-template>
+        </p-orderList>
+    </ng-template>
+</div>

@@ -1,1 +1,51 @@
-<p>chat-talk-page works!</p>
+<div class="knowledges__container">
+    <app-toolbar [username]="username" />
+    <app-sidebar />
+    <div class="nav__container">
+        <app-breadcrumb [items]="breadCrumbItems" />
+        <div class="content__wrapper flex flex-row">
+            <div class="left__container">
+                <p-panel [showHeader]="false">
+                    <p-tabView [activeIndex]="tabViewActiveIndex" (activeIndexChange)="onActiveIndexChange($event)">
+                        <p-tabPanel header="Atendendo">
+                            <app-room-order-list 
+                                [rooms]="chattingRooms"
+                                [noRoomsMessage]="['em atendimento']"
+                                (onItemClick)="onRoomClick($event)"
+                            />
+                        </p-tabPanel>
+                        <p-tabPanel header="Espera">
+                            <app-room-order-list 
+                                [rooms]="openRooms" 
+                                [noRoomsMessage]="['em espera']"
+                                (onItemClick)="onRoomClick($event)"
+                            />
+                        </p-tabPanel>
+                        <p-tabPanel header="Pausado">
+                            <app-room-order-list 
+                                [rooms]="pausedRooms" 
+                                [noRoomsMessage]="['pausadas']"
+                                (onItemClick)="onRoomClick($event)"
+                            />
+                        </p-tabPanel>
+                        <p-tabPanel header="Encerrado">
+                            <app-room-order-list 
+                                [rooms]="closedRooms" 
+                                [noRoomsMessage]="['finalizadas']" 
+                                (onItemClick)="onRoomClick($event)"
+                            />
+                        </p-tabPanel>
+                    </p-tabView>
+                </p-panel>
+            </div>
+            <div class="right__container height-100">
+                <ng-container *ngIf="isRoomSelected; else noRoomSelected">
+                    <app-chat-box [room]="selectedRoom" (onSendTextMessage)="onSendTextMessage($event)" />
+                </ng-container>
+                <ng-template #noRoomSelected>
+                    <app-chat-search />
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

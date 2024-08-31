@@ -8,6 +8,12 @@ import { SharedModule } from '../shared/shared.module';
 import { ManageSectorPageComponent } from './pages/manage-sector-page/manage-sector-page.component';
 import { SelectSectorPageComponent } from './pages/select-sector-page/select-sector-page.component';
 import { ChatTalkPageComponent } from './pages/chat-talk-page/chat-talk-page.component';
+import { RoomOrderListComponent } from './components/room-order-list/room-order-list.component';
+import { MessageRoomOrderListPipe } from './pipes/message-room-order-list.pipe';
+import { TimeRoomOrderListPipe } from './pipes/time-room-order-list.pipe';
+import { MessageScrollPanelComponent } from './components/message-scroll-panel/message-scroll-panel.component';
+import { ChatBoxComponent } from './components/chat-box/chat-box.component';
+import { ChatSearchComponent } from './components/chat-search/chat-search.component';
 
 
 @NgModule({
@@ -16,7 +22,13 @@ import { ChatTalkPageComponent } from './pages/chat-talk-page/chat-talk-page.com
     SectorsPageComponent,
     ManageSectorPageComponent,
     SelectSectorPageComponent,
-    ChatTalkPageComponent
+    ChatTalkPageComponent,
+    RoomOrderListComponent,
+    MessageRoomOrderListPipe,
+    TimeRoomOrderListPipe,
+    MessageScrollPanelComponent,
+    ChatBoxComponent,
+    ChatSearchComponent
   ],
   imports: [
     CommonModule,

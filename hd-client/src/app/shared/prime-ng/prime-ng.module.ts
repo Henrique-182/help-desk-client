@@ -19,6 +19,13 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TooltipModule } from 'primeng/tooltip';
 import { EditorModule } from 'primeng/editor';
 import { TieredMenuModule } from 'primeng/tieredmenu';
+import { TabViewModule } from 'primeng/tabview';
+import { OrderListModule } from 'primeng/orderlist';
+import { PanelModule } from 'primeng/panel';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { ScrollerModule } from 'primeng/scroller';
 
 @NgModule({
   exports: [
@@ -41,7 +48,14 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
     BreadcrumbModule,
     TooltipModule,
     EditorModule,
-    TieredMenuModule
+    TieredMenuModule,
+    TabViewModule,
+    OrderListModule,
+    PanelModule,
+    AvatarModule,
+    AvatarGroupModule,
+    ScrollPanelModule,
+    ScrollerModule
   ]
 })
 export class PrimeNgModule { }

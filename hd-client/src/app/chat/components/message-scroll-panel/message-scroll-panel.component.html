@@ -1,0 +1,12 @@
+<div class="message-scroll-panel__container">
+    <p-card [subheader]="message.user.username" [ngClass]="{'employee': message.user.username === username, 'customer': message.user.username !== username}">
+        <div class="grid grid-auto-flow-column">
+            <div>
+                {{ message.content }}
+            </div>
+            <div class="flex justify-self-end align-self-end">
+                {{ message.createDatetime | timeRoomOrderList }}
+            </div>
+        </div>
+    </p-card>
+</div>

@@ -1,0 +1,37 @@
+<div class="chat-box__container">
+    <p-panel>
+        <ng-template pTemplate="header">
+            <div class="flex flex-row width-100 align-items-center justify-content-space-between">
+                <div class="flex align-items-center gap-05-em">
+                    <p-avatar 
+                        [label]="room.customer.username[0]"
+                        size="large"
+                        shape="circle" />
+                    <span>
+                        {{ room.customer.username }}
+                    </span>
+                </div>
+                <div class="flex align-items-center">
+                    <p-button icon="pi pi-pencil" [rounded]="true" [outlined]="true" [text]="true" [severity]="'secondary'" size="large" />
+                    <p-button icon="pi pi-replay" [rounded]="true" [outlined]="true" [text]="true" [severity]="'secondary'" size="large" />
+                    <p-button icon="pi pi-phone" [rounded]="true" [outlined]="true" [text]="true" [severity]="'secondary'" size="large" />
+                    <p-button icon="pi pi-sign-out" [rounded]="true" [outlined]="true" [text]="true" [severity]="'secondary'" size="large" />
+                </div>
+            </div>
+        </ng-template>
+        <div class="messages__wrapper">
+            <p-scrollPanel #sc [style]="{ width: '100%', height: '24.5rem' }" >
+                <div *ngFor="let m of room.messages">
+                    <app-message-scroll-panel [message]="m" />
+                </div>
+            </p-scrollPanel>
+        </div>
+        <ng-template pTemplate="footer">
+            <div class="flex flex-row align-items-center justify-content-space-between">
+                <input class="input" type="text" [(ngModel)]="textMessage" pInputText />
+                <p-button icon="pi pi-upload" label="Upload" [severity]="undefined" size="small" />
+                <p-button icon="pi pi-send" label="Enviar" [severity]="undefined" size="small" (click)="onSendTextMessage(); scrollBottom()" />
+            </div>
+        </ng-template>
+    </p-panel>    
+</div>

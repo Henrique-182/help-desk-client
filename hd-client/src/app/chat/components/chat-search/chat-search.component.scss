@@ -1,0 +1,28 @@
+@import '../../../../styles/variables';
+
+.chat-search__container {
+    height: 100%;
+    min-height: 30.5em;
+}
+
+::ng-deep .chat-search__container .p-panel {
+    height: 100%;
+}
+
+::ng-deep .chat-search__container .p-panel-content {
+    height: 100%;
+    padding: 0;
+}
+
+::ng-deep .chat-search__container .ng-trigger-panelContent {
+    height: 100%;
+}
+
+.content {
+    background-color: $primary-color;
+}
+
+mat-icon {
+    transform: scale(10);
+    color: white;
+}
