@@ -1,10 +1,10 @@
-import { UserType } from "../../../auth/model/user-type-enum";
+import { UserTypeMssgDto } from "./user-type-mssg-dto";
 
 export interface UserMssg {
 
     key: number,
     username: string, 
     fullname: string,
-    type: UserType,
+    type: UserTypeMssgDto,
     enabled: boolean
 }

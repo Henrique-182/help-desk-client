@@ -6,6 +6,8 @@ import { SharedModule } from '../shared/shared.module';
 import { UsersPageComponent } from './pages/users-page/users-page.component';
 import { ManageUserPageComponent } from './pages/manage-user-page/manage-user-page.component';
 import { UserPermissionPipe } from './pipes/user-permission.pipe';
+import { UserTypePipe } from './pipes/user-type.pipe';
+import { AddUserDialogComponent } from './components/add-user-dialog/add-user-dialog.component';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { UserPermissionPipe } from './pipes/user-permission.pipe';
     LoginPageComponent,
     UsersPageComponent,
     ManageUserPageComponent,
-    UserPermissionPipe
+    UserPermissionPipe,
+    UserTypePipe,
+    AddUserDialogComponent
   ],
   imports: [
     CommonModule,

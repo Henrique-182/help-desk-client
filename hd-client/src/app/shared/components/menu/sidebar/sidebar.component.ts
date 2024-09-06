@@ -26,7 +26,21 @@ export class SidebarComponent {
   chatsIcon = 'pi pi-comments'
   isChatsTiredMenuDisplayNone: boolean = true
   chatsTiredMenu: MenuItem[] = [
-    { label: 'Listagem', icon: 'pi pi-list' },
+    { 
+      label: 'Setor', icon: 'pi pi-list',
+      items: [
+        { label: 'Listagem', icon: 'pi pi-list', url: '/chat/sectors' },
+        { label: 'Selecionar', icon: 'pi pi-search', url: '/chat/sector/select' },
+      ]
+    },
+    { 
+      label: 'Chat', icon: 'pi pi-comments',
+      items: [
+        { label: 'Sector A', icon: 'pi pi-list', url: '/chat/talk/1' },
+        { label: 'Sector B', icon: 'pi pi-list', url: '/chat/talk/2' },
+        { label: 'Sector C', icon: 'pi pi-list', url: '/chat/talk/3' }
+      ]
+    },
     { label: 'Relatórios', icon: 'pi pi-file' }
   ]
 

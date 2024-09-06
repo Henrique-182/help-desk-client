@@ -14,7 +14,7 @@
                 currentPageReportTemplate="{first} - {last} de um total de {totalRecords} setores"
                 (onPage)="handlePageEvent($event)" 
                 [rowsPerPageOptions]="[5, 10, 25]"
-                [sortField]="'title'"
+                [sortField]="'description'"
                 (onSort)="handleSortEvent($event)"
                 styleClass="p-datatable-sm"
             >
@@ -23,10 +23,10 @@
                     <div class="flex align-items-center justify-content-space-between">
                     <div>
                         <p-button [outlined]="true" icon="pi pi-filter-slash" label="Limpar filtros" (click)="onClearFilters()" class="margin-right-1-em" />
-                        <p-button [outlined]="true" icon="pi pi-refresh" label="Recarregar" (click)="onRefreshTable()" />
+                        <p-button [outlined]="true" icon="pi pi-search" label="Pesquisar" (click)="onRefreshTable()" />
                     </div>
                     <div>
-                        <p-button [outlined]="true" severity="success" icon="pi pi-plus" label="Incluir" (click)="onAddSector()" class="margin-right-1-em" />
+                        <p-button [outlined]="true" severity="success" icon="pi pi-plus" label="Incluir" (click)="isAddSectorDialogVisible = true" class="margin-right-1-em" />
                         <p-button [outlined]="true" severity="help" icon="pi pi-file-pdf" label="Report" (click)="onSectorReport()" />
                     </div>
                 </div>
@@ -156,40 +156,6 @@
         </div>
     </div>
     <div class="card flex justify-content-center">
-        <p-dialog header="Adicionar usuário" [modal]="true" [(visible)]="isAddSectorDialogVisible" [style]="{ width: '35em' }">
-            <form [formGroup]="sectorForm" class="flex flex-column">
-                <div class="flex flex-column margin-bottom-1-em">
-                    <label class="margin-bottom-05-rem" for="description">Descrição</label>
-                    <input pInputText formControlName="description" />
-                </div>
-                <div class="flex flex-column margin-bottom-1-em">
-                    <label class="margin-bottom-05-rem" for="employees">Funcionários</label>
-                    <p-multiSelect
-                        [options]="employeesList" 
-                        formControlName="employees" 
-                        optionLabel="fullname" 
-                        placeholder="Selecione funcionários"
-                        [showClear]="false"
-                        [showHeader]="false"
-                    />
-                </div>
-                <div class="flex flex-column margin-bottom-1-em">
-                    <label class="margin-bottom-05-rem" for="customers">Clientes</label>
-                    <p-multiSelect
-                        [options]="customersList" 
-                        formControlName="customers" 
-                        optionLabel="fullname" 
-                        placeholder="Selecione clientes"
-                        [showClear]="false"
-                        [showHeader]="false"
-                    />
-                </div>
-            </form>
-            
-            <div class="flex flex-row justify-content-end gap-05-em">
-              <p-button icon="pi pi-undo" label="Cancelar" severity="warning" (click)="isAddSectorDialogVisible = false" size="small" />
-              <p-button icon="pi pi-save" label="Salvar" severity="success" (click)="onSave()" size="small" />
-            </div>
-        </p-dialog>
+        <app-add-sector-dialog [(dialogVisibility)]="isAddSectorDialogVisible" (onCreateSectorEmmit)="onCreateSector($event)" />
     </div>
 </div>

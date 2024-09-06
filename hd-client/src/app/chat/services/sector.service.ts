@@ -5,6 +5,8 @@ import { Pageable } from '../../shared/model/pageable/pageable';
 import { first, Observable } from 'rxjs';
 import { SectorDto } from '../model/sector-dto';
 import { SimpleSectorWrapperDto } from '../model/simple-sector-wrapper-dto';
+import { UserSctrWrapperDto } from '../model/user-sctr-wrapper-dto';
+import { SectorCreationDto } from '../model/sector-creation.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +60,22 @@ export class SectorService {
       )
   }
 
+  findUsersByType(type: string): Observable<UserSctrWrapperDto> {
+
+    let headers: HttpHeaders = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.getAccessToken()
+    })
+
+    return this._httpClient
+      .get<UserSctrWrapperDto>(
+        this.SECTOR_URL + `/byType/${type}`,
+        { headers }
+      )
+      .pipe(
+        first()
+      )
+  }
+
   findSectorByUser(): Observable<SimpleSectorWrapperDto> {
 
     let headers: HttpHeaders = new HttpHeaders({
@@ -74,7 +92,7 @@ export class SectorService {
       )
   }
 
-  save(body: SectorDto) {
+  save(body: SectorCreationDto) {
 
     let headers: HttpHeaders = new HttpHeaders({
       'Authorization': 'Bearer ' + this.getAccessToken()

@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class UserPermissionPipe implements PipeTransform {
 
-  transform(value: unknown): string {
+  transform(value: string): string {
     return value === 'ADMIN' ? 'Administrador'
         : value === 'MANAGER' ? 'Gerente'
         : value === 'COMMON_USER' ? 'Comum'

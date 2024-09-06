@@ -7,8 +7,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SectorService } from '../../services/sector.service';
 import { firstValueFrom } from 'rxjs';
 import { SectorDto } from '../../model/sector-dto';
-import { UserDto } from '../../../auth/model/user-dto';
-import { UserService } from '../../../auth/services/user.service';
+import { UserSctrDto } from '../../model/user-sctr-dto';
+import { UserSctrWrapperDto } from '../../model/user-sctr-wrapper-dto';
 
 @Component({
   selector: 'app-manage-sector-page',
@@ -27,71 +27,15 @@ export class ManageSectorPageComponent implements OnInit {
   ]
 
   sectorForm: FormGroup = this._formBuilder.group({
-    description: [null],
-    employees: [null],
-    customers: [null]
+    description: [],
+    employees: [],
+    customers: []
   })
   isFormDisabled: boolean
 
-  customersList = [
-    {
-      id: 3,
-      username: "COMMON_USER",
-      fullname: "COMMON_USER",
-      enabled: true,
-      permissions: [
-        {
-          id: 3,
-          description: "COMMON_USER",
-          authority: "COMMON_USER"
-        }
-      ]
-    }
-  ]
+  customersList: UserSctrDto[] = [] as UserSctrDto[]
 
-  employeesList = [
-    {
-      id: 1,
-      username: "ADM",
-      fullname: "ADM",
-      enabled: true,
-      permissions: [
-        {
-          id: 1,
-          description: "ADMIN",
-          authority: "ADMIN"
-        },
-        {
-          id: 2,
-          description: "MANAGER",
-          authority: "MANAGER"
-        },
-        {
-          id: 3,
-          description: "COMMON_USER",
-          authority: "COMMON_USER"
-        }
-      ]
-    },
-    {
-      id: 2,
-      username: "MANAGER",
-      fullname: "MANAGER",
-      enabled: true,
-      permissions: [
-        {
-          id: 2,
-          description: "MANAGER",
-          authority: "MANAGER"
-        },
-        {
-          id: 3,
-          description: "COMMON_USER",
-          authority: "COMMON_USER"
-        }
-      ]
-    }
-  ]
+  employeesList: UserSctrDto[] = [] as UserSctrDto[]
 
   sector: SectorDto = {} as SectorDto
 
@@ -100,7 +44,6 @@ export class ManageSectorPageComponent implements OnInit {
     private _route: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private _sectorService: SectorService,
-    private _userService: UserService,
     private _snackBar: MatSnackBar
   ) {
     this.username = localStorage.getItem('username') || 'Usuário'
@@ -116,6 +59,15 @@ export class ManageSectorPageComponent implements OnInit {
 
   async ngOnInit() {
     await this.findSectorById()
+
+    if (this.action === FormAction.Put) {
+      await this.findEmployeesByType()
+      await this.findCustomersByType()
+    } else {
+      this.employeesList = this.sector.employees
+      this.customersList = this.sector.customers
+    }
+
     this.setFormData()
   }
 
@@ -129,12 +81,36 @@ export class ManageSectorPageComponent implements OnInit {
     }
   }
 
+  async findEmployeesByType() {
+    try {
+      const employees$ = this._sectorService.findUsersByType("Employee")
+      const wrapper: UserSctrWrapperDto = await firstValueFrom(employees$)
+      this.employeesList = wrapper.users
+    } catch (err) {
+      this.showSnackBar('Não foi possível recuperar funcionários. Tente novamente mais tarde!', 'Ok!', 3000)
+      console.log(err);
+    }
+  }
+
+  async findCustomersByType() {
+    try {
+      const customers$ = this._sectorService.findUsersByType("Customer")
+      const wrapper: UserSctrWrapperDto = await firstValueFrom(customers$)
+      this.customersList = wrapper.users
+    } catch (err) {
+      this.showSnackBar('Não foi possível recuperar clientes. Tente novamente mais tarde!', 'Ok!', 3000)
+      console.log(err);
+    }
+  }
+
   setFormData() {
     this.sectorForm = this._formBuilder.group({
       description: new FormControl({ value: this.sector.description, disabled: this.isFormDisabled }),
-      employees: new FormControl({ value: this.sector.employees, disabled: this.isFormDisabled }),
-      customers: new FormControl({ value: this.sector.customers, disabled: this.isFormDisabled })
+      employees: new FormControl<UserSctrDto[] | null>({ value: this.sector.employees, disabled: this.isFormDisabled }),
+      customers: new FormControl<UserSctrDto[] | null>({ value: this.sector.customers, disabled: this.isFormDisabled })
     })
+
+    console.log(this.sectorForm.value);
   }
 
   onEdit() {

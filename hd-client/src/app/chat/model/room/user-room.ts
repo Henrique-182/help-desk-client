@@ -1,10 +1,10 @@
-import { UserType } from "../../../auth/model/user-type-enum";
+import { UserTypeRoomDto } from "./user-type-room-dto";
 
 export interface UserRoom {
 
     key: number,
     username: string, 
     fullname: string,
-    type: UserType,
+    type: UserTypeRoomDto,
     enabled: boolean
 }

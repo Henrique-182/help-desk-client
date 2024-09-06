@@ -1,0 +1,42 @@
+<div class="add-sector-dialog__container">
+    <p-dialog header="Adicionar usuário" [modal]="true" [(visible)]="dialogVisibility" [style]="{ width: '50vw', height: '75vh' }">
+        <div class="flex flex-column justify-content-space-between height-100">
+            <div>
+                <form [formGroup]="sectorForm" class="flex flex-column">
+                    <div class="flex flex-column margin-bottom-1-em">
+                        <label class="margin-bottom-05-rem" for="description">Descrição</label>
+                        <input pInputText formControlName="description" />
+                    </div>
+                    <div class="flex flex-column margin-bottom-1-em">
+                        <label class="margin-bottom-05-rem" for="employees">Funcionários</label>
+                        <p-multiSelect
+                            [options]="employeesOptions" 
+                            formControlName="employees" 
+                            optionLabel="fullname" 
+                            placeholder="Selecione funcionários"
+                            [showClear]="false"
+                            [showHeader]="false"
+                        />
+                    </div>
+                    <div class="flex flex-column margin-bottom-1-em">
+                        <label class="margin-bottom-05-rem" for="customers">Clientes</label>
+                        <p-multiSelect
+                            [options]="customersOptions" 
+                            formControlName="customers" 
+                            optionLabel="fullname" 
+                            placeholder="Selecione clientes"
+                            [showClear]="false"
+                            [showHeader]="false"
+                        />
+                    </div>
+                </form>
+            </div>
+            <div>
+                <div class="flex flex-row justify-content-end gap-05-em">
+                  <p-button icon="pi pi-undo" label="Cancelar" severity="warning" (click)="onDialogVisibleChange()" size="small" />
+                  <p-button icon="pi pi-save" label="Salvar" severity="success" (click)="onCreateSector()" size="small" />
+                </div>
+            </div>
+        </div>
+    </p-dialog>
+</div>

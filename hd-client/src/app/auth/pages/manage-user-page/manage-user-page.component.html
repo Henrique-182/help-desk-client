@@ -40,16 +40,28 @@
                         </div>
                     </div>
                         
-                    <div class="flex flex-column">
-                        <label class="margin-bottom-05-rem" for="permissions">Permissões</label>
-                        <p-multiSelect
-                            [options]="permissionsList" 
-                            formControlName="permissions" 
-                            optionLabel="description" 
-                            placeholder="Selecione permissões"
-                            [showClear]="false"
-                            [showHeader]="false"
-                        />
+                    <div class="flex flex-row width-48 justify-content-space-between">
+                        <div class="flex flex-column">
+                            <label class="margin-bottom-05-rem" for="permissions">Permissões</label>
+                            <p-multiSelect
+                                [options]="permissionsList" 
+                                formControlName="permissions" 
+                                optionLabel="description" 
+                                placeholder="Selecione permissões"
+                                [showClear]="false"
+                                [showHeader]="false"
+                            />
+                        </div>
+                        <div class="flex flex-column">
+                            <label label class="margin-bottom-05-rem" for="type">Tipo</label>
+                            <p-dropdown
+                                [options]="types" 
+                                formControlName="type"
+                                optionLabel="description"
+                                placeholder="Selecione tipo"
+                                [showClear]="false"
+                            />
+                        </div>
                     </div>
                 </form>
                 <ng-template pTemplate="footer">

@@ -1,9 +1,9 @@
-import { UserDto } from "../../auth/model/user-dto";
+import { UserSctrDto } from "./user-sctr-dto";
 
 export interface SectorDto {
 
     key: number,
     description: string,
-    customers: UserDto[],
-    employees: UserDto[]
+    customers: UserSctrDto[],
+    employees: UserSctrDto[]
 }

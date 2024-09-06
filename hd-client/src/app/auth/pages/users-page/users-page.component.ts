@@ -6,8 +6,8 @@ import { UserService } from '../../services/user.service';
 import { Pageable } from '../../../shared/model/pageable/pageable';
 import { UserDtoList } from '../../model/user-dto-list';
 import { firstValueFrom } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
+import { UserCreationDto } from '../../model/user-creation-dto';
 
 @Component({
   selector: 'app-users-page',
@@ -37,16 +37,9 @@ export class UsersPageComponent implements OnInit {
 
   isAddUserDialogVisible: boolean = false
 
-  userForm: FormGroup = this._formBuilder.group({
-    username: [null],
-    fullname: [null],
-    password: [null]
-  })
-
   constructor(
     private _snackBar: MatSnackBar,
     private _router: Router,
-    private _formBuilder: FormBuilder,
     private _userService: UserService
   ) {
     this.username = localStorage.getItem('username') || 'Usuário'
@@ -81,16 +74,6 @@ export class UsersPageComponent implements OnInit {
     this.showSnackBar('Click do menu não implementado!!!', 'Ok!', 3000)
   }
 
-  onAddUser() {
-    this.isAddUserDialogVisible = true
-
-    this.userForm = this._formBuilder.group({
-      username: new FormControl(),
-      fullname: new FormControl(),
-      password: new FormControl()
-    })
-  }
-
   onUserReport() {
     this.showSnackBar('Relatório de usuários não implementado!!!', 'Ok!', 3000)
   }
@@ -103,10 +86,10 @@ export class UsersPageComponent implements OnInit {
     this._router.navigate([`auth/user/edit/${user.key}`])
   }
 
-  async onSave() {
+  async onCreateUser(userCreationDto: UserCreationDto) {
 
     try {
-      const user$ = this._userService.save(this.userForm.value)
+      const user$ = this._userService.save(userCreationDto)
 
       const user = await firstValueFrom(user$)
 

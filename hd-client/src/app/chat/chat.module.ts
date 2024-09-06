@@ -14,6 +14,7 @@ import { TimeRoomOrderListPipe } from './pipes/time-room-order-list.pipe';
 import { MessageScrollPanelComponent } from './components/message-scroll-panel/message-scroll-panel.component';
 import { ChatBoxComponent } from './components/chat-box/chat-box.component';
 import { ChatSearchComponent } from './components/chat-search/chat-search.component';
+import { AddSectorDialogComponent } from './components/add-sector-dialog/add-sector-dialog.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ChatSearchComponent } from './components/chat-search/chat-search.compon
     TimeRoomOrderListPipe,
     MessageScrollPanelComponent,
     ChatBoxComponent,
-    ChatSearchComponent
+    ChatSearchComponent,
+    AddSectorDialogComponent
   ],
   imports: [
     CommonModule,

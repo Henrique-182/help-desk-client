@@ -12,7 +12,7 @@ import { MessageService } from '../../services/message.service';
 import { MessageCreationDto } from '../../model/message/message-creation-dto';
 import { UserRoom } from '../../model/room/user-room';
 import { MessageDto } from '../../model/message/message-dto';
-import { UserType } from '../../../auth/model/user-type-enum';
+import { UserTypeRoomDto } from '../../model/room/user-type-room-dto';
 
 @Component({
   selector: 'app-chat-talk-page',
@@ -151,11 +151,16 @@ export class ChatTalkPageComponent implements OnInit {
           .create(body)
       )
 
+      const userType: UserTypeRoomDto = {
+        key: 2,
+        description: "Employee"
+      }
+
       const userRoom: UserRoom = {
         key: 0,
         username: this.username,
         fullname: '',
-        type: UserType.Employee,
+        type: userType,
         enabled: false
       }
 

@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CustomersList, EmployeesList } from '../../data/sector';
 import { firstValueFrom } from 'rxjs';
+import { SectorCreationDto } from '../../model/sector-creation.dto';
 
 @Component({
   selector: 'app-sectors-page',
@@ -23,13 +24,13 @@ export class SectorsPageComponent implements OnInit {
 
   breadCrumbItems: MenuItem[] = [
     { label: 'Chat', url: '/chat/home' },
-    { label: 'Listagem de Setores', url: '/chat/sectors' }
+    { label: 'Lista de setores', url: '/chat/sectors' }
   ]
 
   tableValue: SectorDto[] = [] as SectorDto[]
 
-  totalElements: number = 10
-  rows: number = 10
+  totalElements: number = 5
+  rows: number = 5
   first: number = 0
 
   sortBy: string = 'description'
@@ -41,23 +42,14 @@ export class SectorsPageComponent implements OnInit {
   customersOptions: UserDto[] = {} as UserDto[]
 
   isAddSectorDialogVisible: boolean = false
-  sectorForm: FormGroup = this._formBuilder.group({
-    description: [null],
-    employees: [null],
-    customers: [null]
-  })
 
   constructor (
     private _snackBar: MatSnackBar,
     private _sectorService: SectorService,
-    private _router: Router,
-    private _formBuilder: FormBuilder,
+    private _router: Router
   ) {
     this.username = localStorage.getItem('username') || 'Usuário'
   }
-
-  employeesList = EmployeesList
-  customersList = CustomersList
 
   async ngOnInit() {
     this.sectorsRequest()
@@ -127,10 +119,6 @@ export class SectorsPageComponent implements OnInit {
       })
   }
 
-  onAddSector() {
-    this.isAddSectorDialogVisible = true
-  }
-
   onSectorReport() {
     
   }
@@ -148,6 +136,8 @@ export class SectorsPageComponent implements OnInit {
       const user$ = this._sectorService.deleteById(sector.key)
 
       await firstValueFrom(user$)
+
+      this.sectorsRequest()
       
       this.showSnackBar('Setor excluído com sucesso!', 'Ok!', 3000)
     } catch (err) {
@@ -156,9 +146,9 @@ export class SectorsPageComponent implements OnInit {
     }
   }
 
-  async onSave() {
+  async onCreateSector(sectorCreationDto: SectorCreationDto) {
     try {
-      const sector$ = this._sectorService.save(this.sectorForm.value)
+      const sector$ = this._sectorService.save(sectorCreationDto)
 
       const sector = await firstValueFrom(sector$)
 

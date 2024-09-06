@@ -8,6 +8,7 @@ import { UserPermission } from '../../model/user-permission';
 import { UserService } from '../../services/user.service';
 import { firstValueFrom } from 'rxjs';
 import { MenuItem } from 'primeng/api';
+import { UserTypeDto } from '../../model/user-type-dto';
 
 @Component({
   selector: 'app-manage-user-page',
@@ -31,7 +32,8 @@ export class ManageUserPageComponent implements OnInit {
     accountNonLocked: [null],
     credentialsNonExpired: [null],
     enabled: [null],
-    permissions: [null]
+    permissions: [null],
+    type: [null]
   })
   isFormDisabled: boolean
 
@@ -41,6 +43,12 @@ export class ManageUserPageComponent implements OnInit {
     { id: 1, description: 'Administrador', authority: 'ADMIN' },
     { id: 2, description: 'Gerente', authority: 'MANAGER' },
     { id: 3, description: 'Comum', authority: 'COMMON_USER' },
+  ]
+
+  types: UserTypeDto[] = [
+    { key: 1, description: "Administrador" },
+    { key: 2, description: "Funcionário" },
+    { key: 3, description: "Cliente" }
   ]
 
   constructor(
@@ -82,6 +90,11 @@ export class ManageUserPageComponent implements OnInit {
           p.description = 'Comum'
         }
       })
+
+      if (this.user.type.description === 'Adm') this.user.type.description = 'Administrador'  
+      else if (this.user.type.description === 'Employee') this.user.type.description = 'Funcionário' 
+      else this.user.type.description = 'Cliente'
+
     } catch (err) {
       this.showSnackBar('Não foi possível recuperar o usuário. Tente novamente mais tarde!', 'Ok!', 3000)
       console.log(err);
@@ -97,6 +110,7 @@ export class ManageUserPageComponent implements OnInit {
       credentialsNonExpired: new FormControl({ value: this.user.credentialsNonExpired, disabled: this.isFormDisabled }),
       enabled: new FormControl({ value: this.user.enabled, disabled: this.isFormDisabled }),
       permissions: new FormControl({ value: this.user.permissions, disabled: this.isFormDisabled }),
+      type: new FormControl({ value: this.user.type, disabled: true }) 
     })
   }
 

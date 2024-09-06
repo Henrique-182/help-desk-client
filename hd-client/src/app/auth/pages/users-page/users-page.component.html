@@ -24,10 +24,10 @@
         <div class="flex align-items-center justify-content-space-between">
           <div>
             <p-button [outlined]="true" icon="pi pi-filter-slash" label="Limpar filtros" (click)="onClearFilters()" class="margin-right-1-em" />
-            <p-button [outlined]="true" icon="pi pi-refresh" label="Recarregar" (click)="onRefreshTable()" />
+            <p-button [outlined]="true" icon="pi pi-search" label="Pesquisar" (click)="onRefreshTable()" />
           </div>
           <div>
-            <p-button [outlined]="true" severity="success" icon="pi pi-plus" label="Incluir" (click)="onAddUser()" class="margin-right-1-em" />
+            <p-button [outlined]="true" severity="success" icon="pi pi-plus" label="Incluir" (click)="isAddUserDialogVisible = true" class="margin-right-1-em" />
             <p-button [outlined]="true" severity="help" icon="pi pi-file-pdf" label="Report" (click)="onUserReport()" />
           </div>
       </div>
@@ -85,6 +85,9 @@
             Ativo
           </th>
           <th>
+            Tipo
+          </th>
+          <th>
             <div class="flex justify-content-space-between align-items-center">
                 <div>
                   Permissões
@@ -124,10 +127,16 @@
           <td>{{ user.fullname }}</td>
           <td>{{ user.enabled | booleanToYn }}</td>
           <td>
+            <p-tag  
+              [value]="user.type.description | userType"
+              [severity]="'info'" 
+              [rounded]="true"
+            />
+          </td>
+          <td>
             <p-tag 
               *ngFor="let d of user.permissions" 
               [value]="d.description | userPermission" 
-              [severity]="d.description" 
               [rounded]="true"
             />
           </td>
@@ -161,26 +170,6 @@
     </div>
   </div>
   <div class="card flex justify-content-center">
-      <p-dialog header="Adicionar usuário" [modal]="true" [(visible)]="isAddUserDialogVisible" [style]="{ width: '30em' }">
-          <form [formGroup]="userForm" class="flex flex-column">
-            <div class="flex flex-row align-items-center justify-content-space-between margin-bottom-05-rem">
-              <label for="username">Nome de usuário</label>
-              <input pInputText formControlName="username" />
-            </div>
-            <div class="flex flex-row align-items-center justify-content-space-between margin-bottom-05-rem">
-              <label for="fullname">Nome completo</label>
-              <input pInputText formControlName="fullname" />
-            </div>
-            <div class="flex flex-row align-items-center justify-content-space-between margin-bottom-1-em">
-              <label for="password">Senha</label>
-              <input pInputText formControlName="password" />
-            </div>
-          </form>
-          
-          <div class="flex flex-row justify-content-end gap-05-em">
-            <p-button icon="pi pi-undo" label="Cancelar" severity="warning" (click)="isAddUserDialogVisible = false" size="small" />
-            <p-button icon="pi pi-save" label="Salvar" severity="success" (click)="onSave()" size="small" />
-          </div>
-      </p-dialog>
+      <app-add-user-dialog [(dialogVisibility)]="isAddUserDialogVisible" (onSaveUserEmitt)="onCreateUser($event)" />
   </div>
 </div>
