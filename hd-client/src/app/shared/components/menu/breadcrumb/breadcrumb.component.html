@@ -1,3 +1,12 @@
-<div class="breadcrumb__container">
-    <p-breadcrumb [model]="model" />
+<div class="breadcrumb__container width-100">
+    <div class="flex flex-row width-100 justify-content-space-between ">
+        <div>
+            <p-breadcrumb [model]="model" />
+        </div>
+        <div class="flex flex-row align-items-center">
+            <div *ngFor="let item of buttons">
+                <p-button [icon]="item.icon" [text]="true" [severity]="'contrast'" [pTooltip]="item.label" (click)="onButtonClick(item.target!)" [hidden]="!item.visible"/>
+            </div>
+        </div>
+    </div>
 </div>

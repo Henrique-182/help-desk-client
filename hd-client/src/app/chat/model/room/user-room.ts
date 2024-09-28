@@ -4,7 +4,5 @@ export interface UserRoom {
 
     key: number,
     username: string, 
-    fullname: string,
-    type: UserTypeRoomDto,
-    enabled: boolean
+    type: UserTypeRoomDto
 }

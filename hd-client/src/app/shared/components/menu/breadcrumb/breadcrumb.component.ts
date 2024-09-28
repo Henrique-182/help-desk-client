@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -15,10 +15,21 @@ export class BreadcrumbComponent implements OnInit {
   @Input({ required: false })
   items: MenuItem[] = []
 
+  @Input({ required: false })
+  buttons: MenuItem[] = []
+
+  @Output()
+  onButtonClickEmitt = new EventEmitter<string>()
+
   constructor () {}
 
   ngOnInit(): void {
     
     this.items.forEach(i => this.model.push(i))
+  }
+
+  onButtonClick(target: string) {
+
+    this.onButtonClickEmitt.emit(target)
   }
 }

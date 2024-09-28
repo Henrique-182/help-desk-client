@@ -23,6 +23,8 @@ export class MessageRoomOrderListPipe implements PipeTransform {
       returningMessage = 'Áudio'
     } else if (type === "VIDEO") {
       returningMessage = 'Vídeo'
+    } else if (type === "FILE") {
+      returningMessage = 'Arquivo'
     }
 
     return returningMessage

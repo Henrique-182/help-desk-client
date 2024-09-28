@@ -2,12 +2,12 @@
     padding: 0;
 }
 
-::ng-deep .message-scroll-panel__container .employee .p-component {
+::ng-deep .message-scroll-panel__container .actual .p-component {
     background-color: #d1d5ed;
     margin-left: 10em;
 }
 
-::ng-deep .message-scroll-panel__container .customer .p-component {
+::ng-deep .message-scroll-panel__container .other .p-component {
     margin-right: 10em;
 }
 

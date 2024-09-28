@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SectorDtoList } from '../model/sector-dto-list';
+import { SectorDtoList } from '../model/sector/sector-dto-list';
 import { Pageable } from '../../shared/model/pageable/pageable';
 import { first, Observable } from 'rxjs';
-import { SectorDto } from '../model/sector-dto';
-import { SimpleSectorWrapperDto } from '../model/simple-sector-wrapper-dto';
-import { UserSctrWrapperDto } from '../model/user-sctr-wrapper-dto';
-import { SectorCreationDto } from '../model/sector-creation.dto';
+import { SectorDto } from '../model/sector/sector-dto';
+import { SimpleSectorWrapperDto } from '../model/sector/simple-sector-wrapper-dto';
+import { UserSctrWrapperDto } from '../model/sector/user-sctr-wrapper-dto';
+import { SectorCreationDto } from '../model/sector/sector-creation.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -90,6 +90,22 @@ export class SectorService {
       .pipe(
         first()
       )
+  }
+
+  findUsersBySector(type: string, id: number): Observable<UserSctrWrapperDto> {
+
+    let headers: HttpHeaders = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.getAccessToken()
+    })
+
+    return this._httpClient
+              .get<UserSctrWrapperDto>(
+                this.SECTOR_URL + `/bySector/${type}/${id}`,
+                { headers }
+              )
+              .pipe(
+                first()
+              )
   }
 
   save(body: SectorCreationDto) {

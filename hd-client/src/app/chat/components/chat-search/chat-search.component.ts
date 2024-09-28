@@ -7,6 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class ChatSearchComponent {
 
-
+  click() {
+    console.log(`clicou`);
+  }
 
 }

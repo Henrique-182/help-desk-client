@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { SectorCreationDto } from '../../model/sector-creation.dto';
-import { UserSctrDto } from '../../model/user-sctr-dto';
+import { SectorCreationDto } from '../../model/sector/sector-creation.dto';
+import { UserSctrDto } from '../../model/sector/user-sctr-dto';
 import { SectorService } from '../../services/sector.service';
-import { UserSctrWrapperDto } from '../../model/user-sctr-wrapper-dto';
+import { UserSctrWrapperDto } from '../../model/sector/user-sctr-wrapper-dto';
 import { firstValueFrom } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 

@@ -13,11 +13,17 @@
                     
                     <div class="flex flex-column margin-bottom-1-em">
                         <label class="margin-bottom-05-rem" for="content">Conteúdo</label>
-                        <p-editor 
-                            formControlName="content" 
-                            [readonly]="isFormDisabled" 
-                            [style]="{ height: '500px' }" 
-                        />
+                        <ng-container *ngIf="isFormDisabled; else contentNotEditModeTemplate">
+                            <div [innerHTML]="knowledge.content"></div>
+                        </ng-container>
+                        <ng-template #contentNotEditModeTemplate>
+                            <p-editor 
+                                formControlName="content" 
+                                [readonly]="isFormDisabled" 
+                                [style]="{ height: '500px' }" 
+                            />
+                        </ng-template>
+                        
                     </div>
 
                     <div class="flex flex-column margin-bottom-1-em">

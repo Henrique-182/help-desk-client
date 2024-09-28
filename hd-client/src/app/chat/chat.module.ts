@@ -15,6 +15,13 @@ import { MessageScrollPanelComponent } from './components/message-scroll-panel/m
 import { ChatBoxComponent } from './components/chat-box/chat-box.component';
 import { ChatSearchComponent } from './components/chat-search/chat-search.component';
 import { AddSectorDialogComponent } from './components/add-sector-dialog/add-sector-dialog.component';
+import { UploadFileDialogComponent } from './components/upload-file-dialog/upload-file-dialog.component';
+import { HeaderDialogUploadFilePipe } from './pipes/header-dialog-upload-file.pipe';
+import { EditRoomDialogComponent } from './components/edit-room-dialog/edit-room-dialog.component';
+import { EditRoomDialogRoomStatusPipe } from './pipes/edit-room-dialog-room-status.pipe';
+import { CloseRoomDialogComponent } from './components/close-room-dialog/close-room-dialog.component';
+import { TransferRoomDialogComponent } from './components/transfer-room-dialog/transfer-room-dialog.component';
+import { AddRoomDialogComponent } from './components/add-room-dialog/add-room-dialog.component';
 
 
 @NgModule({
@@ -30,7 +37,14 @@ import { AddSectorDialogComponent } from './components/add-sector-dialog/add-sec
     MessageScrollPanelComponent,
     ChatBoxComponent,
     ChatSearchComponent,
-    AddSectorDialogComponent
+    AddSectorDialogComponent,
+    UploadFileDialogComponent,
+    HeaderDialogUploadFilePipe,
+    EditRoomDialogComponent,
+    EditRoomDialogRoomStatusPipe,
+    CloseRoomDialogComponent,
+    TransferRoomDialogComponent,
+    AddRoomDialogComponent
   ],
   imports: [
     CommonModule,

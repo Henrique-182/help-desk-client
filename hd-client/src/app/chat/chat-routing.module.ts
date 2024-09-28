@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'chat/sector/info/:id', component: ManageSectorPageComponent },
   { path: 'chat/sector/edit/:id', component: ManageSectorPageComponent },
   { path: 'chat/sector/select', component: SelectSectorPageComponent },
-  { path: 'chat/talk/:id', component: ChatTalkPageComponent }
+  { path: 'chat/talk/:type/:id', component: ChatTalkPageComponent }
 ];
 
 @NgModule({

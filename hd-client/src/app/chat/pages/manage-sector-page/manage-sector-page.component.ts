@@ -6,9 +6,9 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SectorService } from '../../services/sector.service';
 import { firstValueFrom } from 'rxjs';
-import { SectorDto } from '../../model/sector-dto';
-import { UserSctrDto } from '../../model/user-sctr-dto';
-import { UserSctrWrapperDto } from '../../model/user-sctr-wrapper-dto';
+import { SectorDto } from '../../model/sector/sector-dto';
+import { UserSctrDto } from '../../model/sector/user-sctr-dto';
+import { UserSctrWrapperDto } from '../../model/sector/user-sctr-wrapper-dto';
 
 @Component({
   selector: 'app-manage-sector-page',
@@ -104,13 +104,12 @@ export class ManageSectorPageComponent implements OnInit {
   }
 
   setFormData() {
+    
     this.sectorForm = this._formBuilder.group({
       description: new FormControl({ value: this.sector.description, disabled: this.isFormDisabled }),
       employees: new FormControl<UserSctrDto[] | null>({ value: this.sector.employees, disabled: this.isFormDisabled }),
       customers: new FormControl<UserSctrDto[] | null>({ value: this.sector.customers, disabled: this.isFormDisabled })
     })
-
-    console.log(this.sectorForm.value);
   }
 
   onEdit() {

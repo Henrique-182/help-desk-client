@@ -1,8 +1,48 @@
 <div class="message-scroll-panel__container">
-    <p-card [subheader]="message.user.username" [ngClass]="{'employee': message.user.username === username, 'customer': message.user.username !== username}">
+    <p-card [subheader]="message.user.username" [ngClass]="{'actual': message.user.type.description.toLowerCase() === userType, 'other': message.user.type.description.toLowerCase() !== userType}">
         <div class="grid grid-auto-flow-column">
             <div>
-                {{ message.content }}
+                <ng-container
+                    [ngTemplateOutlet]="
+                        (message.type.match('TEXT')) ? messageTextTemplate 
+                        : (message.type.match('IMAGE')) ? messageImageTemplate
+                        : (message.type.match('AUDIO')) ? messageAudioTemplate
+                        : (message.type.match('VIDEO')) ? messageVideoTemplate
+                        : messageFileTemplate
+                    "
+                />
+
+                <ng-template #messageTextTemplate>
+                    {{ message.content }}
+                </ng-template>
+                <ng-template #messageImageTemplate>
+                    <p-image 
+                        [src]="message.content" 
+                        alt="Image"
+                        width="400"
+                        height="200" 
+                        [preview]="true"
+                    />
+                </ng-template>
+                <ng-template #messageAudioTemplate></ng-template>
+                <ng-template #messageVideoTemplate>
+                    <video
+                        [src]="message.content"
+                        width="400" 
+                        height="200"
+                        controls
+                    ></video>
+                </ng-template>
+                <ng-template #messageFileTemplate>
+                    <button 
+                        pButton
+                        [label]="message.content.substring(9, message.content.indexOf(';data'))" 
+                        icon="pi pi-download" 
+                        [text]="true" 
+                        [severity]="'contrast'" 
+                        (click)="onDownloadFile(message.content)"
+                    ></button>
+                </ng-template>
             </div>
             <div class="flex justify-self-end align-self-end">
                 {{ message.createDatetime | timeRoomOrderList }}

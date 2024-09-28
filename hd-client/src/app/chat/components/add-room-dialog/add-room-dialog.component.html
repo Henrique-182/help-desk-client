@@ -1,0 +1,47 @@
+<div class="add-room-dialog__container">
+    <p-dialog header="Criação de sala" [modal]="true" [(visible)]="dialogVisibility" (onShow)="onShow()" (onHide)="onHide()" [style]="{ width: '60vw', height: '65vh' }">
+        <div class="flex flex-column justify-content-space-between height-100">
+            <div>
+                <form [formGroup]="roomForm" class="flex flex-column">
+                    <div class="flex flex-row gap-05-em width-100">
+                        <div class="flex flex-column margin-bottom-1-em width-48">
+                            <label class="margin-bottom-05-rem" for="customer">Cliente</label>
+                            <p-dropdown
+                            [options]="customerOptions" 
+                            formControlName="customer"
+                            optionLabel="username"
+                            placeholder="Selecione o cliente"
+                            [showClear]="false"
+                        />
+                        </div>
+                        <div class="flex flex-column margin-bottom-1-em width-48">
+                            <label class="margin-bottom-05-rem" for="priority">Prioridade</label>
+                            <p-dropdown
+                                [options]="priorityOptions" 
+                                formControlName="priority"
+                                optionLabel="value"
+                                placeholder="Selecione a prioridade"
+                                [showClear]="false"
+                            />
+                        </div>
+                    </div>
+                    <div class="flex flex-column margin-bottom-1-em width-100">
+                        <label class="margin-bottom-05-rem" for="reason">Motivo do chamado</label>
+                        <textarea 
+                            rows="5" 
+                            pInputTextarea 
+                            formControlName="reason"
+                            [style]="{ resize: 'none' }"
+                        ></textarea>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <div class="flex flex-row justify-content-end gap-05-em">
+                  <p-button icon="pi pi-undo" label="Cancelar" severity="warning" (click)="onHide()" size="small" />
+                  <p-button icon="pi pi-save" label="Salvar" severity="success" (click)="onAddRoom()" size="small" />
+                </div>
+            </div>
+        </div>
+    </p-dialog>
+</div>

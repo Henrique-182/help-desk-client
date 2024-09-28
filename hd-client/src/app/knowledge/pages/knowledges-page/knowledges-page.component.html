@@ -88,6 +88,32 @@
                             </div>           
                         </th>
                         <th>
+                            <div class="flex justify-content-space-between align-items-center">
+                                <div>
+                                    Software
+                                </div>
+                                <div>
+                                    <p-columnFilter 
+                                        field="enabled"
+                                        ariaLabel="Filtra software"
+                                        display="menu"
+                                        [showMatchModes]="false"
+                                        [showOperator]="false"
+                                        [showAddButton]="false"
+                                        [showClearButton]="false"
+                                    >
+                                        <ng-template pTemplate="filter">
+                                        <p-dropdown [(ngModel)]="querySoftware" [options]="softwares" placeholder="Busca por software">
+                                            <ng-template let-software pTemplate="item">
+                                                <p-tag [value]="software.label" />
+                                            </ng-template>
+                                        </p-dropdown>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </div>
+                            </div>
+                        </th>
+                        <th>
                             Ações
                         </th>
                     </tr>
@@ -103,6 +129,13 @@
                         *ngFor="let d of knowledge.tags" 
                         [value]="d.description"  
                         [rounded]="true"
+                        />
+                    </td>
+                    <td>
+                        <p-tag  
+                            [value]="knowledge.software.description"
+                            [severity]="undefined" 
+                            [rounded]="true"
                         />
                     </td>
                     <td>
@@ -166,7 +199,7 @@
                 <div class="flex flex-column margin-bottom-1-em">
                     <label class="margin-bottom-05-rem" for="software">Software</label>
                     <p-dropdown
-                        [options]="softwares" 
+                        [options]="softwaresForm" 
                         formControlName="software" 
                         optionLabel="description" 
                         placeholder="Selecione software"

@@ -80,6 +80,29 @@ export class RoomService {
       )
   }
 
+  findBySectorAndCustomerAndStatus(sectorKey: number, statusList: RoomStatus[]): Observable<RoomWrapperDto> {
+
+    let headers: HttpHeaders = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.getAccessToken()
+    })
+
+    let params = new HttpParams()
+      .set('status1', statusList[0] || '')
+      .set('status2', statusList[1] || '')
+      .set('status3', statusList[2] || '')
+      .set('status4', statusList[3] || '')
+      .set('status5', statusList[4] || '')
+
+    return this._httpClient
+      .get<RoomWrapperDto>(
+        this.ROOM_URL + `/bySectorAndCustomerAndStatus/${sectorKey}`,
+        { headers, params }
+      )
+      .pipe(
+        first()
+      )
+  }
+
   createByCustomer(body: RoomCreationDto) {
 
     let headers: HttpHeaders = new HttpHeaders({
@@ -114,6 +137,23 @@ export class RoomService {
               )
   }
 
+  updateReasonAndSolutionAndPriority(code: number, body: RoomUpdateDto) {
+
+    let headers: HttpHeaders = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.getAccessToken()
+    })
+
+    return this._httpClient
+            .patch<RoomDto>(
+              this.ROOM_URL + `/reasonAndSolutionAndPriority/${code}`,
+              body,
+              { headers }
+            )
+            .pipe(
+              first()
+            )
+  }
+
   updateStatusByCode(code: number, body: RoomUpdateDto) {
 
     let headers: HttpHeaders = new HttpHeaders({
@@ -121,7 +161,7 @@ export class RoomService {
     })
 
     return this._httpClient
-            .put<RoomDto>(
+            .patch<RoomDto>(
               this.ROOM_URL + `/status/${code}`,
               body,
               { headers }
@@ -131,16 +171,16 @@ export class RoomService {
             )
   }
 
-  updateEmployeeAndStatusByCode(code: number, body: RoomUpdateDto) {
+  employeeEnterRoomByCode(code: number) {
 
     let headers: HttpHeaders = new HttpHeaders({
       'Authorization': 'Bearer ' + this.getAccessToken()
     })
 
     return this._httpClient
-            .put<RoomDto>(
-              this.ROOM_URL + `/employeeAndStatus/${code}`,
-              body,
+            .patch<RoomDto>(
+              this.ROOM_URL + `/enterRoom/${code}`,
+              null,
               { headers }
             )
             .pipe(
@@ -148,15 +188,15 @@ export class RoomService {
             )
   }
 
-  updateEmployeeAndSectorAndStatusByCode(code: number, body: RoomUpdateDto) {
+  transferRoomByCode(code: number, body: RoomUpdateDto) {
 
     let headers: HttpHeaders = new HttpHeaders({
       'Authorization': 'Bearer ' + this.getAccessToken()
     })
 
     return this._httpClient
-            .put<RoomDto>(
-              this.ROOM_URL + `/employeeAndSectorAndStatus/${code}`,
+            .patch<RoomDto>(
+              this.ROOM_URL + `/transferRoom/${code}`,
               body,
               { headers }
             )

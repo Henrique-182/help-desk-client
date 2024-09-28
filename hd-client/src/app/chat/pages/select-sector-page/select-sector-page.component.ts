@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SectorService } from '../../services/sector.service';
 import { MenuItem } from 'primeng/api';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SimpleSectorWrapperDto } from '../../model/simple-sector-wrapper-dto';
-import { SimpleSectorDto } from '../../model/simple-sector-dto';
+import { SimpleSectorWrapperDto } from '../../model/sector/simple-sector-wrapper-dto';
+import { SimpleSectorDto } from '../../model/sector/simple-sector-dto';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,6 +16,7 @@ export class SelectSectorPageComponent implements OnInit {
   username: string
 
   sectors: SimpleSectorDto[] = [] as SimpleSectorDto[]
+  userType: string = ''
 
   breadCrumbItems: MenuItem[] = [
     { label: 'Chat', url: '/chat/home' },
@@ -38,6 +39,8 @@ export class SelectSectorPageComponent implements OnInit {
     this._sectorService.findSectorByUser()
       .subscribe({
         next: (data: SimpleSectorWrapperDto) => {
+          this.userType = data.userType
+
           if (data.sectors.length !== 0) {
             this.sectors = data.sectors
           } else {
@@ -52,7 +55,7 @@ export class SelectSectorPageComponent implements OnInit {
   }
 
   onGoToChat(id: number) {
-    this._router.navigate([`chat/talk/${id}`])
+    this._router.navigate([`chat/talk/${this.userType.toLowerCase()}/${id}`])
   }
 
   private showSnackBar(message: string, action: string, snackBarDuration: number) {

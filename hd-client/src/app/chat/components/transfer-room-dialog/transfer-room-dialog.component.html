@@ -1,0 +1,37 @@
+<div class="transfer-room-dialog__container">
+    <p-dialog header="Transferir a sala #{{ room.code }}" [modal]="true" [(visible)]="dialogVisibility" (onShow)="onShow()" (onHide)="onHide()" [style]="{ width: '30vw', height: '45vh' }">
+        <div class="flex flex-column justify-content-space-between height-100">
+            <form [formGroup]="roomForm" class="flex flex-column">
+                <div class="flex flex-column gap-05-em width-100">
+                    <div class="flex flex-row align-items-center justify-content-space-between margin-bottom-05-rem">
+                        <label for="sector">Setor</label>
+                        <p-dropdown
+                            [options]="sectorOptions"
+                            formControlName="sector"
+                            optionLabel="description"
+                            placeholder="Selecione o setor"
+                            [showClear]="false"
+                            (onChange)="onChange()"
+                        />
+                    </div>
+                    <div class="flex flex-row align-items-center justify-content-space-between margin-bottom-05-rem">
+                        <label for="employee">Funcionário</label>
+                        <p-dropdown
+                            [options]="employeeOptions"
+                            formControlName="employee"
+                            optionLabel="username"
+                            placeholder="Selecione o funcionário"
+                            [showClear]="false"
+                        />
+                    </div>
+                </div>
+            </form>
+            <div>
+                <div class="flex flex-row justify-content-end gap-05-em">
+                  <p-button icon="pi pi-undo" label="Cancelar" severity="warning" (click)="onHide()" size="small" />
+                  <p-button icon="pi pi-save" label="Salvar" severity="success" (click)="onTransferRoom()" size="small" />
+                </div>
+            </div>
+        </div>
+    </p-dialog>
+</div>

@@ -2,7 +2,7 @@
     <app-toolbar [username]="username" />
     <app-sidebar />
     <div class="nav__container">
-        <app-breadcrumb [items]="breadCrumbItems" />
+        <app-breadcrumb [items]="breadCrumbItems" [buttons]="breadCrumbButtons" (onButtonClickEmitt)="onBreadCrumbButtonClick($event)"/>
         <div class="content__wrapper flex flex-row">
             <div class="left__container">
                 <p-panel [showHeader]="false">
@@ -14,14 +14,14 @@
                                 (onItemClick)="onRoomClick($event)"
                             />
                         </p-tabPanel>
-                        <p-tabPanel header="Espera">
+                        <p-tabPanel header="Espera" *ngIf="userType === 'employee'">
                             <app-room-order-list 
                                 [rooms]="openRooms" 
                                 [noRoomsMessage]="['em espera']"
                                 (onItemClick)="onRoomClick($event)"
                             />
                         </p-tabPanel>
-                        <p-tabPanel header="Pausado">
+                        <p-tabPanel header="Pausado" *ngIf="userType === 'employee'">
                             <app-room-order-list 
                                 [rooms]="pausedRooms" 
                                 [noRoomsMessage]="['pausadas']"
@@ -39,8 +39,16 @@
                 </p-panel>
             </div>
             <div class="right__container height-100">
-                <ng-container *ngIf="isRoomSelected; else noRoomSelected">
-                    <app-chat-box [room]="selectedRoom" (onSendTextMessage)="onSendTextMessage($event)" />
+                <ng-container *ngIf="selectedRoom.code; else noRoomSelected">
+                    <app-chat-box 
+                        [room]="selectedRoom" 
+                        (onSendTextMessageEmitt)="onSendTextMessage($event)" 
+                        (onSendImageEmitt)="onSendFile($event)"
+                        (onEmployeeEnterChatEmmit)="onEmployeeEnterChat()"
+                        (onEditRoomEmitt)="onEditRoom($event)"
+                        (onTransferRoomEmitt)="onTransferRoom($event)"
+                        (onCloseRoomEmitt)="onCloseRoom($event)"
+                    />
                 </ng-container>
                 <ng-template #noRoomSelected>
                     <app-chat-search />
@@ -49,3 +57,8 @@
         </div>
     </div>
 </div>
+
+<app-add-room-dialog
+    [(dialogVisibility)]="addRoomDialogVisibility"
+    (onAddRoomEmitt)="onAddRoomByEmployee($event)"
+/>

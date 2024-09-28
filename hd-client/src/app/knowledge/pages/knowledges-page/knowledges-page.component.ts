@@ -45,6 +45,12 @@ export class KnowledgesPageComponent implements OnInit {
     { label: 'Tag F', value: 'Tag F' },
   ]
 
+  softwares = [
+    { label: 'Software A', value: 'Software A' },
+    { label: 'Software B', value: 'Software B' },
+    { label: 'Software C', value: 'Software C' }
+  ]
+
   isAddKnowledgeDialogVisible: boolean = false
 
   knowledgeForm: FormGroup = this._formBuilder.group({
@@ -62,11 +68,14 @@ export class KnowledgesPageComponent implements OnInit {
     { id: 5, description: 'Tag E' },
     { id: 6, description: 'Tag F' },
   ]
-  softwares = [
+
+  softwaresForm = [
     { id: 1, description: 'Software A' },
     { id: 2, description: 'Software B' },
     { id: 3, description: 'Software C' },
   ]
+
+  
 
   constructor(
     private _snackBar: MatSnackBar,
@@ -124,6 +133,7 @@ export class KnowledgesPageComponent implements OnInit {
         ['knowledgeContent', this.queryContent],
         ['softwareDescription', this.queryTitle],
         ['tagDescription', this.queryTag],
+        ['softwareDescription', this.querySoftware]
       ])
     }
 

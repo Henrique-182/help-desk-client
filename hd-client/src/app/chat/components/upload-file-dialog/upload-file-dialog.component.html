@@ -1,0 +1,26 @@
+<div class="upload-image-dialog__container">
+    <p-dialog header="Escolha {{ htmlAccept | headerDialogUploadFile }}" [modal]="true" [(visible)]="dialogVisibility" (onHide)="onDialogVisibilityChange()" [style]="{ width: '50vw', height: '75vh' }">
+        <p-fileUpload
+            [style]="{ height: '100%' }"        
+            [customUpload]="true"
+            (onSelect)="onSelect($event)"
+            (uploadHandler)="onUploadFile()"
+            [multiple]="true" 
+            [accept]="htmlAccept" 
+            type="file"
+            fileLimit="5"
+            maxFileSize="10000000"
+            chooseLabel="Escolher"
+            uploadLabel="Enviar"
+            cancelLabel="Cancelar"
+        >
+            <ng-template pTemplate="content">
+                <ul *ngIf="selectedFiles.length">
+                    <li *ngFor="let file of selectedFiles">
+                        {{ file.name }} - {{ file.size / 1024 / 1024 }} megabytes
+                    </li>
+                </ul>
+            </ng-template>
+        </p-fileUpload>
+    </p-dialog>
+</div>

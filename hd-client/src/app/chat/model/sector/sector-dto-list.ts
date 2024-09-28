@@ -1,5 +1,5 @@
-import { Links } from "../../shared/model/hateoas/links"
-import { Page } from "../../shared/model/hateoas/page"
+import { Links } from "../../../shared/model/hateoas/links"
+import { Page } from "../../../shared/model/hateoas/page"
 import { SectorDto } from "./sector-dto"
 
 export interface SectorDtoList {

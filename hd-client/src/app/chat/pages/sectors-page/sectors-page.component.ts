@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { SectorDto } from '../../model/sector-dto';
-import { SectorDtoList } from '../../model/sector-dto-list';
+import { SectorDto } from '../../model/sector/sector-dto';
+import { SectorDtoList } from '../../model/sector/sector-dto-list';
 import { Pageable } from '../../../shared/model/pageable/pageable';
 import { SectorService } from '../../services/sector.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserDto } from '../../../auth/model/user-dto';
 import { UserService } from '../../../auth/services/user.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { CustomersList, EmployeesList } from '../../data/sector';
 import { firstValueFrom } from 'rxjs';
-import { SectorCreationDto } from '../../model/sector-creation.dto';
+import { SectorCreationDto } from '../../model/sector/sector-creation.dto';
 
 @Component({
   selector: 'app-sectors-page',

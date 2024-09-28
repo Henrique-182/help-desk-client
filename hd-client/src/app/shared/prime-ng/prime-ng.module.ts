@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
@@ -26,6 +27,11 @@ import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { ScrollerModule } from 'primeng/scroller';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ImageModule } from 'primeng/image';
+import { MenuModule } from 'primeng/menu';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   exports: [
@@ -55,7 +61,15 @@ import { ScrollerModule } from 'primeng/scroller';
     AvatarModule,
     AvatarGroupModule,
     ScrollPanelModule,
-    ScrollerModule
+    ScrollerModule,
+    ConfirmDialogModule,
+    FileUploadModule,
+    ImageModule,
+    MenuModule,
+    InputTextareaModule
+  ],
+  providers: [
+    ConfirmationService
   ]
 })
 export class PrimeNgModule { }
