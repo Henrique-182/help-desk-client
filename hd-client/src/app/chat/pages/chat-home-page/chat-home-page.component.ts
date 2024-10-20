@@ -25,6 +25,10 @@ export class ChatHomePageComponent {
     this._router.navigate(['/chat/sector/select'])
   }
 
+  onGoToChatDashboardPage() {
+    this._router.navigate([`/chat/dashboard`])
+  }
+
   onGoToSectorsPage() {
     this._router.navigate(['/chat/sectors'])
   }

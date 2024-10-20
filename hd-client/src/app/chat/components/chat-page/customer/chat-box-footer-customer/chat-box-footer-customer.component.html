@@ -1,0 +1,30 @@
+<div>
+    <ng-container
+        [ngTemplateOutlet]="
+            (room.status.match('Chatting') || room.status.match('Transferred') || room.status.match('Open')) ? footerTalkingTemplate 
+            : (room.status.match('Closed')) ? footerClosedTemplate
+            : footerUnkownTemplate
+        "
+    />
+    <ng-template #footerTalkingTemplate>
+        <div class="flex flex-row align-items-center justify-content-space-between">
+            <p-inputGroup>                        
+                <button icon="pi pi-upload" type="button" pButton (click)="menu.toggle($event)" class="p-button-help"></button>
+                <button icon="pi pi-microphone" type="button" pButton (click)="null" class="p-button-help"></button>
+                <input [(ngModel)]="textMessage" pInputText placeholder="Mensagem..." />
+                <button icon="pi pi-send" type="button" pButton (click)="onSendTextMessageEmitt()" class="p-button-help"></button>
+            </p-inputGroup>
+        </div>    
+    </ng-template>
+
+    <ng-template #footerClosedTemplate>
+        <div class="width-100">
+            <p-button label="Gerar relatório da sala" [outlined]="true" [severity]="'help'" (click)="null" [style]="{ width: '100%' }" />
+        </div>
+    </ng-template>
+
+    <ng-template #footerUnkownTemplate></ng-template>
+</div>
+
+<p-menu #menu [model]="menuItems" [popup]="true" />
+

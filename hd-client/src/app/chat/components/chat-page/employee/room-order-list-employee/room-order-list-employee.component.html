@@ -1,0 +1,35 @@
+<div class="flex align-items-center gap-05-em width-100">
+    <p-avatar 
+        [label]="room.customer.username[0].toUpperCase()" 
+        size="normal" 
+        shape="circle" 
+        [style]="{ backgroundColor: 'violet', color: 'black'}"
+    />
+    <div class="flex flex-column width-100">
+        <div class="grid grid-auto-flow-column">
+            <div>
+                {{ room.customer.username }}
+            </div>
+            <div class="flex justify-self-end">
+                #{{ room.code }}
+            </div>
+    </div>
+    <div class="grid grid-auto-flow-column">
+        <ng-container *ngIf="room.messages.at(-1); else noMessageTemplate">
+            <div>
+                {{ room.messages.at(-1)! | messageRoomOrderList }}
+            </div>
+            <div class="flex justify-self-end">
+                {{ room.messages.at(-1)?.createDatetime! | timeRoomOrderList }}
+            </div>
+        </ng-container>
+        <ng-template #noMessageTemplate>
+            <div>
+                Sala criada
+            </div>
+            <div class="flex justify-self-end">
+                {{ room.createDatetime | timeRoomOrderList }}
+            </div>
+        </ng-template>
+    </div>
+</div>

@@ -1,19 +1,19 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { SectorRoom } from '../../model/room/sector-room';
-import { UserRoom } from '../../model/room/user-room';
-import { Pageable } from '../../../shared/model/pageable/pageable';
-import { SectorService } from '../../services/sector.service';
+import { SectorRoom } from '../../../../model/room/sector-room';
+import { UserRoom } from '../../../../model/room/user-room';
+import { Pageable } from '../../../../../shared/model/pageable/pageable';
+import { SectorService } from '../../../../services/sector.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { RoomCreationDto } from '../../model/room/room-creation-dto';
+import { RoomCreationDto } from '../../../../model/room/room-creation-dto';
 
 @Component({
-  selector: 'app-add-room-dialog',
-  templateUrl: './add-room-dialog.component.html',
-  styleUrl: './add-room-dialog.component.scss'
+  selector: 'app-add-room-dialog-employee',
+  templateUrl: './add-room-dialog-employee.component.html',
+  styleUrl: './add-room-dialog-employee.component.scss'
 })
-export class AddRoomDialogComponent {
+export class AddRoomDialogEmployeeComponent {
 
   @Input({ required: true })
   dialogVisibility: boolean = false

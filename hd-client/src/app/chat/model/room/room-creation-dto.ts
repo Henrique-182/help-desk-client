@@ -1,7 +1,6 @@
 export interface RoomCreationDto {
 
-    customerKey: number,
-    employeeKey?: number,
+    customerKey?: number,
     sectorKey: number,
     priority?: number
 }

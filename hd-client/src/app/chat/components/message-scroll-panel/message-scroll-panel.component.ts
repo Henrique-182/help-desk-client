@@ -18,7 +18,6 @@ export class MessageScrollPanelComponent {
     private _route: ActivatedRoute,
   ) {
     this.userType = this._route.snapshot.paramMap.get('type') || ''
-    console.log(this.userType);
   }
 
   onDownloadFile(event: any) {

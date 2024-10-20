@@ -1,0 +1,35 @@
+<div class="flex flex-row width-100 align-items-center justify-content-space-between">
+    <div class="flex align-items-center gap-05-em">
+        <p-avatar 
+            [label]="room.customer.username[0].toUpperCase()"
+            size="large"
+            shape="circle" 
+            [style]="{ backgroundColor: 'violet', color: 'black'}"
+        />
+        <span>
+            {{ room.customer.username }} #{{ room.code }}
+        </span>
+    </div>
+    <div class="flex align-items-center">
+        <ng-container
+            [ngTemplateOutlet]="
+                (room.status.match('Chatting') || room.status.match('Transferred')) ? buttonsTalkingTemplate 
+                : (room.status.match('Open')) ? buttonsOpenTemplate
+                : (room.status.match('Paused')) ? buttonsPausedTemplate
+                : buttonsClosedTemplate
+            "
+        />
+
+        <ng-template #buttonsTalkingTemplate>
+            <p-button icon="pi pi-pencil" [rounded]="true" [outlined]="true" [text]="true" [severity]="'secondary'" size="large" pTooltip="Editar sala" (click)="editRoomVisibilityEmmit()" />
+            <p-button icon="pi pi-arrow-right-arrow-left" [rounded]="true" [outlined]="true" [text]="true" [severity]="'secondary'" size="large" pTooltip="Transferir sala" (click)="transferRoomVisibilityEmmit()" />
+            <p-button icon="pi pi-pause" [rounded]="true" [outlined]="true" [text]="true" [severity]="'secondary'" size="large" pTooltip="Pausar sala" (click)="null" />
+            <p-button icon="pi pi-phone" [rounded]="true" [outlined]="true" [text]="true" [severity]="'secondary'" size="large" pTooltip="Ligar" (click)="null" />
+            <p-button icon="pi pi-sign-out" [rounded]="true" [outlined]="true" [text]="true" [severity]="'secondary'" size="large" pTooltip="Encerrar sala" (click)="closeRoomVisibilityEmmit()" />
+        </ng-template>
+
+        <ng-template #buttonsOpenTemplate></ng-template>
+        <ng-template #buttonsPausedTemplate></ng-template>
+        <ng-template #buttonsClosedTemplate></ng-template>
+    </div>
+</div>

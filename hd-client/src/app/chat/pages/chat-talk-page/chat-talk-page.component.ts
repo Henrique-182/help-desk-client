@@ -33,7 +33,8 @@ export class ChatTalkPageComponent implements OnInit {
 
   breadCrumbButtons: MenuItem[] = []
 
-  addRoomDialogVisibility: boolean = false
+  addRoomDialogEmployeeVisibility: boolean = false
+  addRoomDialogCustomerVisibility: boolean = false
 
   tabViewActiveIndex: number = 0
 
@@ -47,8 +48,8 @@ export class ChatTalkPageComponent implements OnInit {
   constructor (
     private _route: ActivatedRoute,
     private _roomService: RoomService,
-    private _messageService: MessageService,
-    private _snackBar: MatSnackBar
+  private _messageService: MessageService,
+  private _snackBar: MatSnackBar
   ) {
     this.username = localStorage.getItem('username') || 'Usuário'
     this.id = Number.parseInt(this._route.snapshot.paramMap.get('id') || '0')
@@ -80,8 +81,8 @@ export class ChatTalkPageComponent implements OnInit {
   }
 
   onBreadCrumbButtonClick(event: string) {
-   if (event === 'addRoomByEmployee') this.addRoomDialogVisibility = true
-   else if (event === 'addRoomByCustomer') {}
+   if (event === 'addRoomByEmployee') this.addRoomDialogEmployeeVisibility = true
+   else if (event === 'addRoomByCustomer') this.addRoomDialogCustomerVisibility = true
   }
 
   onActiveIndexChange(newIndex: number) {
@@ -151,7 +152,7 @@ export class ChatTalkPageComponent implements OnInit {
     try {
       const wrapper = await firstValueFrom(
         this._roomService
-          .findBySectorAndCustomerAndStatus(this.id, [RoomStatus.Chatting, RoomStatus.Transferred])
+          .findBySectorAndCustomerAndStatus(this.id, [RoomStatus.Chatting, RoomStatus.Transferred, RoomStatus.Open])
       )
 
       this.chattingRooms = wrapper.rooms
@@ -206,15 +207,15 @@ export class ChatTalkPageComponent implements OnInit {
       console.log(err)
     }  
   }
-
-  async onAddRoomByEmployee(roomCreationDto: RoomCreationDto) {
+  
+  async onAddRoomByCustomer(roomCreationDto: RoomCreationDto) {
     try {
       const roomDto: RoomDto = await firstValueFrom(
         this._roomService
-          .createByEmployee(roomCreationDto)
+          .createByCustomer(roomCreationDto)
       )
       
-      this.addRoomDialogVisibility = false
+      this.addRoomDialogCustomerVisibility = false
 
       this.selectedRoom = {} as RoomDto
       
@@ -228,11 +229,32 @@ export class ChatTalkPageComponent implements OnInit {
     }
   }
 
-  async onEmployeeEnterChat() {
+  async onAddRoomByEmployee(roomCreationDto: RoomCreationDto) {
     try {
       const roomDto: RoomDto = await firstValueFrom(
         this._roomService
-          .employeeEnterRoomByCode(this.selectedRoom.code)
+          .createByEmployee(roomCreationDto)
+      )
+      
+      this.addRoomDialogEmployeeVisibility = false
+
+      this.selectedRoom = {} as RoomDto
+      
+      this.chattingRooms.push(roomDto)
+
+      this.onActiveIndexChange(0)
+
+    } catch (err) {
+      this.showSnackBar('Não foi possível criar a sala. Tente novamente mais tarde!', 'Ok!', 3000)
+      console.log(err)
+    }
+  }
+
+  async onEmployeeEnterChat(code: number) {
+    try {
+      const roomDto: RoomDto = await firstValueFrom(
+        this._roomService
+          .employeeEnterRoomByCode(code)
       )
 
       this.openRooms = this.openRooms.filter(room => room !== this.selectedRoom)
@@ -348,14 +370,16 @@ export class ChatTalkPageComponent implements OnInit {
           .create(messageCreationDto)
       )
 
+      console.log(messageDto);
+
       const userType: UserTypeRoomDto = {
-        key: 2,
-        description: "Employee"
+        key: messageDto.user.type.key,
+        description: messageDto.user.type.description
       }
 
       const userRoom: UserRoom = {
-        key: 0,
-        username: this.username,
+        key: messageDto.user.key,
+        username: messageDto.user.username,
         type: userType
       }
 

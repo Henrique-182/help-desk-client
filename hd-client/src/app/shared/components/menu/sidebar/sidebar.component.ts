@@ -27,6 +27,9 @@ export class SidebarComponent {
   isChatsTiredMenuDisplayNone: boolean = true
   chatsTiredMenu: MenuItem[] = [
     { 
+      label: 'Dashboard', icon: 'pi pi-list', url: '/chat/dashboard'
+    },
+    { 
       label: 'Setor', icon: 'pi pi-list',
       items: [
         { label: 'Listagem', icon: 'pi pi-list', url: '/chat/sectors' },

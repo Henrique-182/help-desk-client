@@ -1,0 +1,48 @@
+<div class="flex flex-row width-100 align-items-center justify-content-space-between">
+    <ng-container *ngIf="room.status !== 'Open'; else openTemplate">
+        <div class="flex align-items-center gap-05-em">
+            <p-avatar 
+                [label]="room.employee.username[0]"
+                size="large"
+                shape="circle" 
+                [style]="{ backgroundColor: 'violet', color: 'black'}"
+            />
+            <span>
+                {{ room.employee.username }} #{{ room.code }}
+            </span>
+        </div>
+        <div class="flex align-items-center">
+            <ng-container
+                [ngTemplateOutlet]="
+                    (room.status.match('Chatting') || room.status.match('Transferred')) ? buttonsTalkingTemplate 
+                    : (room.status.match('Paused')) ? buttonsPausedTemplate
+                    : buttonsClosedTemplate
+                "
+            />
+    
+            <ng-template #buttonsTalkingTemplate>
+                <p-button icon="pi pi-phone" [rounded]="true" [outlined]="true" [text]="true" [severity]="'secondary'" size="large" (click)="null" />
+            </ng-template>
+
+            <ng-template #buttonsPausedTemplate></ng-template>
+            <ng-template #buttonsClosedTemplate></ng-template>
+        </div>
+    </ng-container>
+    <ng-template #openTemplate>
+        <div class="flex align-items-center gap-05-em">
+            <p-avatar 
+                [label]=""
+                size="large"
+                shape="circle" 
+                [style]="{ backgroundColor: 'violet', color: 'black'}"
+            />
+            <span>
+                Sem atendente #{{ room.code }}
+            </span>
+        </div>
+        <div class="flex align-items-center">
+            <p-button icon="pi pi-phone" [rounded]="true" [outlined]="true" [text]="true" [severity]="'secondary'" size="large" (click)="null" />
+        </div>
+    </ng-template>
+</div>
+

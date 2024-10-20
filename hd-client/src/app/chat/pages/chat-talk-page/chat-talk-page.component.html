@@ -44,7 +44,7 @@
                         [room]="selectedRoom" 
                         (onSendTextMessageEmitt)="onSendTextMessage($event)" 
                         (onSendImageEmitt)="onSendFile($event)"
-                        (onEmployeeEnterChatEmmit)="onEmployeeEnterChat()"
+                        (onEmployeeEnterChatEmitt)="onEmployeeEnterChat($event)"
                         (onEditRoomEmitt)="onEditRoom($event)"
                         (onTransferRoomEmitt)="onTransferRoom($event)"
                         (onCloseRoomEmitt)="onCloseRoom($event)"
@@ -58,7 +58,12 @@
     </div>
 </div>
 
-<app-add-room-dialog
-    [(dialogVisibility)]="addRoomDialogVisibility"
+<app-add-room-dialog-employee
+    [(dialogVisibility)]="addRoomDialogEmployeeVisibility"
     (onAddRoomEmitt)="onAddRoomByEmployee($event)"
+/>
+
+<app-add-room-dialog-customer 
+    [(dialogVisibility)]="addRoomDialogCustomerVisibility"
+    (onAddRoomEmitt)="onAddRoomByCustomer($event)"
 />

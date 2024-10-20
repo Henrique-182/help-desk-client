@@ -1,0 +1,49 @@
+<div class="chat-dashboard__container">
+    <app-toolbar [username]="username" />
+    <app-sidebar />
+    <div class="nav__container">
+        <app-breadcrumb [items]="breadCrumbItems" />
+        <div class="content__container">
+            <div class="flex flex-row justify-content-space-between" [style]="{ marginBottom: '2vh' }">
+                <p-calendar [(ngModel)]="initialDate" dateFormat="dd-mm-yy" [showButtonBar]="true" [showIcon]="true" [showOnFocus]="false" />
+                <p-calendar [(ngModel)]="endDate" dateFormat="dd-mm-yy" [showButtonBar]="true" [showIcon]="true" [showOnFocus]="false" />
+                <p-button [outlined]="true" icon="pi pi-search" label="Pesquisar" (click)="onRefreshDashboard()" />
+            </div>
+            <div class="flex flex-row justify-content-space-between gap-05-em" [style]="{ marginBottom: '2vh' }">
+                <p-card header="Atendendo" [style]="{ width: '15vw' }">
+                    <span>{{ chattingRooms | async }}</span>
+                </p-card>
+                <p-card header="Espera" [style]="{ width: '15vw' }">
+                    <span>{{ openRooms | async }}</span>
+                </p-card>
+                <p-card header="Pausado" [style]="{ width: '15vw' }">
+                    <span>{{ pausedRooms | async }}</span>
+                </p-card>
+                <p-card header="Encerrado" [style]="{ width: '15vw' }">
+                    <span>{{ closedRooms | async }}</span>
+                </p-card>
+                <p-card header="Todos" [style]="{ width: '15vw' }">
+                    <span>{{ allRooms | async }}</span>
+                </p-card>
+            </div>
+            <div class="flex flex-column width-100 gap-05-em">
+                <div class="flex flex-row justify-content-space-between width-100 gap-05-em">
+                    <p-card>
+                        <p-chart type="bar" [data]="dataRoomEmployeeQuantities" [options]="optionsRoomEmployeeQuantities" [width]="'600px'" [height]="'300px'" />
+                    </p-card>
+                    <p-card>
+                        <p-chart type="bar" [data]="dataRoomCustomerQuantities" [options]="optionsRoomCustomerQuantities" [width]="'600px'" [height]="'300px'" />
+                    </p-card>
+                </div>
+                <div class="flex flex-row justify-content-space-between width-100 gap-05-em">
+                    <p-card>
+                        <p-chart type="pie" [data]="dataRoomPriorityQuantities" [options]="optionsRoomPriorityQuantities" [width]="'600px'" [height]="'300px'" />
+                    </p-card>
+                    <p-card>
+                        <p-chart type="bar" [data]="dataSectorMonthQuantities" [options]="optionsSectorMonthQuantities" [width]="'600px'" [height]="'300px'" />
+                    </p-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

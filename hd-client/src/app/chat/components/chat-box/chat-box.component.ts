@@ -29,7 +29,7 @@ export class ChatBoxComponent {
   onSendImageEmitt = new EventEmitter<MessageCreationDto>()
 
   @Output()
-  onEmployeeEnterChatEmmit = new EventEmitter<null>()
+  onEmployeeEnterChatEmitt = new EventEmitter<number>()
 
   @Output()
   onEditRoomEmitt = new EventEmitter<RoomUpdateDto>()
@@ -40,30 +40,10 @@ export class ChatBoxComponent {
   @Output()
   onCloseRoomEmitt = new EventEmitter<RoomUpdateDto>()
 
-  menuItems: MenuItem[] = [
-    {
-      label: 'Imagens',
-      icon: 'pi pi-images',
-      command: () => this.onOpenImageUploadDialog()
-    },
-    {
-      label: 'Vídeos',
-      icon: 'pi pi-video',
-      command: () => this.onOpenVideoUploadDialog()
-    },
-    {
-      label: 'Arquivos',
-      icon: 'pi pi-file',
-      command: () => this.onOpenFileUploadDialog()
-    }
-  ]
-
   uploadDialogVisibility: boolean = false
-  editRoomDialogVisibility: boolean = false
-  transferRoomDialogVisibility: boolean = false
-  closeRoomDialogVisibility: boolean = false
-
-  textMessage: string = ''
+  editRoomDialogEmployeeVisibility: boolean = false
+  transferRoomDialogEmployeeVisibility: boolean = false
+  closeRoomDialogEmployeeVisibility: boolean = false
 
   htmlAccept: string = ''
 
@@ -77,9 +57,9 @@ export class ChatBoxComponent {
     this.userType = this._route.snapshot.paramMap.get('type') || ''
   }
 
-  onEnterRoom() {
+  onEnterRoom(code: number) {
 
-    this.onEmployeeEnterChatEmmit.emit()
+    this.onEmployeeEnterChatEmitt.emit(code)
   }
 
   onCloseRoom(roomUpdateDto: RoomUpdateDto) {
@@ -102,7 +82,7 @@ export class ChatBoxComponent {
 
     })
 
-    this.closeRoomDialogVisibility = false
+    this.closeRoomDialogEmployeeVisibility = false
   }
 
   onCallRoom() {
@@ -113,14 +93,18 @@ export class ChatBoxComponent {
 
     this.onEditRoomEmitt.emit(roomUpdateDto)
 
-    this.editRoomDialogVisibility = false
+    this.editRoomDialogEmployeeVisibility = false
   }
 
   onTransferRoom(roomUpdateDto: RoomUpdateDto) {
 
     this.onTransferRoomEmitt.emit(roomUpdateDto)
 
-    this.transferRoomDialogVisibility = false
+    this.transferRoomDialogEmployeeVisibility = false
+  }
+
+  onOpenTransferRoomDialog() {
+    this.transferRoomDialogEmployeeVisibility = true
   }
 
   onOpenImageUploadDialog() {
@@ -142,22 +126,15 @@ export class ChatBoxComponent {
     this.showSnackBar('Áudio não implementado!', 'Ok!', 3000)
   }
 
-  onSendTextMessage() {
+  onSendTextMessage(message: string) {
 
-    if (this.textMessage.trim()) {
-      const messageCreationDto: MessageCreationDto = {
-        roomKey: this.room.key,
-        type: MessageType.Text,
-        content: this.textMessage
-      }
-
-      this.onSendTextMessageEmitt.emit(messageCreationDto)
-
-      this.textMessage = ''
-      this.scrollBottom()
-    } else {
-      this.showSnackBar('Não é possível enviar mensagens vazias!', 'Ok!', 3000)
+    const messageCreationDto: MessageCreationDto = {
+      roomKey: this.room.key,
+      type: MessageType.Text,
+      content: message
     }
+
+    this.onSendTextMessageEmitt.emit(messageCreationDto)
 
     this.scrollBottom()
   }

@@ -21,7 +21,15 @@ import { EditRoomDialogComponent } from './components/edit-room-dialog/edit-room
 import { EditRoomDialogRoomStatusPipe } from './pipes/edit-room-dialog-room-status.pipe';
 import { CloseRoomDialogComponent } from './components/close-room-dialog/close-room-dialog.component';
 import { TransferRoomDialogComponent } from './components/transfer-room-dialog/transfer-room-dialog.component';
-import { AddRoomDialogComponent } from './components/add-room-dialog/add-room-dialog.component';
+import { AddRoomDialogEmployeeComponent } from './components/chat-page/employee/add-room-dialog-employee/add-room-dialog-employee.component';
+import { ChatDashboardPageComponent } from './pages/chat-dashboard-page/chat-dashboard-page.component';
+import { ChatBoxHeaderEmployeeComponent } from './components/chat-page/employee/chat-box-header-employee/chat-box-header-employee.component';
+import { ChatBoxHeaderCustomerComponent } from './components/chat-page/customer/chat-box-header-customer/chat-box-header-customer.component';
+import { ChatBoxFooterEmployeeComponent } from './components/chat-page/employee/chat-box-footer-employee/chat-box-footer-employee.component';
+import { ChatBoxFooterCustomerComponent } from './components/chat-page/customer/chat-box-footer-customer/chat-box-footer-customer.component';
+import { AddRoomDialogCustomerComponent } from './components/chat-page/customer/add-room-dialog-customer/add-room-dialog-customer.component';
+import { RoomOrderListCustomerComponent } from './components/chat-page/customer/room-order-list-customer/room-order-list-customer.component';
+import { RoomOrderListEmployeeComponent } from './components/chat-page/employee/room-order-list-employee/room-order-list-employee.component';
 
 
 @NgModule({
@@ -44,7 +52,15 @@ import { AddRoomDialogComponent } from './components/add-room-dialog/add-room-di
     EditRoomDialogRoomStatusPipe,
     CloseRoomDialogComponent,
     TransferRoomDialogComponent,
-    AddRoomDialogComponent
+    AddRoomDialogEmployeeComponent,
+    ChatDashboardPageComponent,
+    ChatBoxHeaderEmployeeComponent,
+    ChatBoxHeaderCustomerComponent,
+    ChatBoxFooterEmployeeComponent,
+    ChatBoxFooterCustomerComponent,
+    AddRoomDialogCustomerComponent,
+    RoomOrderListCustomerComponent,
+    RoomOrderListEmployeeComponent
   ],
   imports: [
     CommonModule,

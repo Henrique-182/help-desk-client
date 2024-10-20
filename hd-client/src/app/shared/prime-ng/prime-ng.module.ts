@@ -32,6 +32,8 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
 import { MenuModule } from 'primeng/menu';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CalendarModule } from 'primeng/calendar';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   exports: [
@@ -66,7 +68,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     FileUploadModule,
     ImageModule,
     MenuModule,
-    InputTextareaModule
+    InputTextareaModule,
+    CalendarModule,
+    ChartModule
   ],
   providers: [
     ConfirmationService

@@ -1,53 +1,21 @@
 <div class="chat-box__container">
     <p-panel>
         <ng-template pTemplate="header">
-            <div class="flex flex-row width-100 align-items-center justify-content-space-between">
-                <div class="flex align-items-center gap-05-em">
-                    <ng-container *ngIf="userType === 'employee'; else customerTemplate">
-                        <p-avatar 
-                            [label]="room.customer.username[0]"
-                            size="large"
-                            shape="circle" 
-                            [style]="{ backgroundColor: 'violet', color: 'black'}"
-                        />
-                        <span>
-                            {{ room.customer.username }} #{{ room.code }}
-                        </span>
-                    </ng-container>
-                    <ng-template #customerTemplate>
-                        <p-avatar 
-                            [label]="room.employee.username[0]"
-                            size="large"
-                            shape="circle" 
-                            [style]="{ backgroundColor: 'violet', color: 'black'}"
-                        />
-                        <span>
-                            {{ room.employee.username }} #{{ room.code }}
-                        </span>
-                    </ng-template>
-                </div>
-                <div class="flex align-items-center">
-                    <ng-container
-                        [ngTemplateOutlet]="
-                            (room.status.match('Chatting') || room.status.match('Transferred')) ? buttonsTalkingTemplate 
-                            : (room.status.match('Open')) ? buttonsOpenTemplate
-                            : (room.status.match('Paused')) ? buttonsPausedTemplate
-                            : buttonsClosedTemplate
-                        "
-                    />
-
-                    <ng-template #buttonsTalkingTemplate>
-                        <p-button icon="pi pi-pencil" [rounded]="true" [outlined]="true" [text]="true" [severity]="'secondary'" size="large" (click)="editRoomDialogVisibility = true" />
-                        <p-button icon="pi pi-arrow-right-arrow-left" [rounded]="true" [outlined]="true" [text]="true" [severity]="'secondary'" size="large" (click)="transferRoomDialogVisibility = true" />
-                        <p-button icon="pi pi-phone" [rounded]="true" [outlined]="true" [text]="true" [severity]="'secondary'" size="large" (click)="onCallRoom()" />
-                        <p-button icon="pi pi-sign-out" [rounded]="true" [outlined]="true" [text]="true" [severity]="'secondary'" size="large" (click)="closeRoomDialogVisibility = true" />
-                    </ng-template>
-
-                    <ng-template #buttonsOpenTemplate></ng-template>
-                    <ng-template #buttonsPausedTemplate></ng-template>
-                    <ng-template #buttonsClosedTemplate></ng-template>
-                </div>
-            </div>
+            <ng-container *ngIf="userType === 'employee'; else headerCustomerTemplate">
+                <app-chat-box-header-employee 
+                    class="width-100" 
+                    [room]="room"
+                    [(editRoomDialogEmployeeVisibility)]="editRoomDialogEmployeeVisibility"
+                    [(transferRoomDialogEmployeeVisibility)]="transferRoomDialogEmployeeVisibility"
+                    [(closeRoomDialogEmployeeVisibility)]="closeRoomDialogEmployeeVisibility"
+                />
+            </ng-container>
+            <ng-template #headerCustomerTemplate>
+                <app-chat-box-header-customer 
+                    [room]="room"
+                    class="width-100" 
+                />
+            </ng-template>
         </ng-template>
         <div class="messages__wrapper">
             <p-scrollPanel #sc [style]="{ width: '100%', height: '24.5rem' }">
@@ -57,49 +25,30 @@
             </p-scrollPanel>
         </div>
         <ng-template pTemplate="footer">
-            <ng-container
-                [ngTemplateOutlet]="
-                    (room.status.match('Chatting') || room.status.match('Transferred')) ? footerTalkingTemplate 
-                    : (room.status.match('Open')) ? footerOpenTemplate
-                    : (room.status.match('Paused')) ? footerPausedTemplate
-                    : footerClosedTemplate
-                "
-            />
-            <ng-template #footerTalkingTemplate>
-                <div class="flex flex-row align-items-center justify-content-space-between">
-                    <p-inputGroup>                        
-                        <button icon="pi pi-upload" type="button" pButton (click)="menu.toggle($event)" class="p-button-help"></button>
-                        <button icon="pi pi-microphone" type="button" pButton (click)="onTalkRoom()" class="p-button-help"></button>
-                        <input [(ngModel)]="textMessage" pInputText placeholder="Mensagem..." />
-                        <button icon="pi pi-send" type="button" pButton (click)="onSendTextMessage(); scrollBottom()" class="p-button-help"></button>
-                    </p-inputGroup>
-                </div>    
+            <ng-container *ngIf="userType === 'employee'; else footerCustomerTemplate">
+                <app-chat-box-footer-employee 
+                    [room]="room"
+                    (onOpenImageUploadDialog)="onOpenImageUploadDialog()"
+                    (onOpenVideoUploadDialog)="onOpenVideoUploadDialog()"
+                    (onOpenFileUploadDialog)="onOpenFileUploadDialog()"
+                    (onSendTextMessage)="onSendTextMessage($event)"
+                    (onEnterRoom)="onEnterRoom($event)"
+                    (onTranferRoom)="onOpenTransferRoomDialog()"
+                /> 
+            </ng-container>
+            <ng-template #footerCustomerTemplate>
+                <app-chat-box-footer-customer 
+                    [room]="room"
+                    (onOpenImageUploadDialog)="onOpenImageUploadDialog()"
+                    (onOpenVideoUploadDialog)="onOpenVideoUploadDialog()"
+                    (onOpenFileUploadDialog)="onOpenFileUploadDialog()"
+                    (onSendTextMessage)="onSendTextMessage($event)"
+                />
             </ng-template>
             
-            <ng-template #footerOpenTemplate>
-                <div class="width-100">
-                    <p-button label="Entrar na conversa" [outlined]="true" [severity]="'help'" (click)="onEnterRoom()" [style]="{ width: '50%' }" />
-                    <p-button label="Transferir de setor" [outlined]="true" [severity]="'help'" (click)="transferRoomDialogVisibility = true" [style]="{ width: '50%' }" />
-                </div>
-            </ng-template>
-
-            <ng-template #footerPausedTemplate>
-                <div class="width-100">
-                    <p-button label="Retomar conversa" [outlined]="true" [severity]="'help'" (click)="null" [style]="{ width: '100%' }" />
-                </div>
-            </ng-template>
-
-            <ng-template #footerClosedTemplate>
-                <div class="width-100">
-                    <p-button label="Reabrir conversa" [outlined]="true" [severity]="'help'" (click)="null" [disabled]="true" [style]="{ width: '50%' }" />
-                    <p-button label="Gerar relatório da sala" [outlined]="true" [severity]="'help'" (click)="null" [disabled]="true" [style]="{ width: '50%' }" />
-                </div>
-            </ng-template>
         </ng-template>
     </p-panel>    
 </div>
-
-<p-menu #menu [model]="menuItems" [popup]="true" />
 
 <p-confirmDialog />
 
@@ -112,19 +61,19 @@
 />
 
 <app-edit-room-dialog 
-    [(dialogVisibility)]="editRoomDialogVisibility"
+    [(dialogVisibility)]="editRoomDialogEmployeeVisibility"
     (OnEditRoomEmitt)="onEditRoom($event)"
     [room]="room"
 />
 
 <app-transfer-room-dialog
-    [(dialogVisibility)]="transferRoomDialogVisibility"
+    [(dialogVisibility)]="transferRoomDialogEmployeeVisibility"
     (onTransferRoomEmitt)="onTransferRoom($event)"
     [room]="room"
 />
 
 <app-close-room-dialog
-    [(dialogVisibility)]="closeRoomDialogVisibility"
+    [(dialogVisibility)]="closeRoomDialogEmployeeVisibility"
     (onCloseRoomEmitt)="onCloseRoom($event)"
     [room]="room"
 />
